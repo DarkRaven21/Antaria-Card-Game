@@ -1,0 +1,505 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Slab);
+
+:root {
+  --card-border-color: white;
+  --card-text-background-color: white;
+}
+
+body {
+  display: flex;
+  gap: 25px;
+  font-family: 'Roboto Slab';
+/*   flex-wrap: wrap; */
+}
+
+.playingCard {
+  position: relative;
+  z-index: 4;
+  margin-inline: auto;
+  padding: 5px;
+  height: 280px;
+  width: 200px;
+  border: solid 1px;
+  gap: 5px;
+  background: var(--card-border-color);
+}
+
+#cardContainer{
+  position:relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#imageHero {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 98%;
+  height: 138px;
+  border: solid 1px;
+}
+
+#lifeCountersHero {
+  display: flex;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: -17%;
+  width: 98%;
+  height: 10%;
+  justify-content: space-around;
+}
+
+#lifeCountersHero div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px;
+  border-radius: 50px;
+  height: 26px;
+  width: 26px;
+}
+
+#lifeCountersHero .inner-circle {
+  position: relative;
+  border: solid 1px;
+  border-radius: 50px;
+  height: 22px;
+  width: 22px;
+  background: white;
+}
+
+#nameHero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  left: 50%;
+  margin-top: 6%;
+  margin-bottom: 2%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 10%;
+  border: solid 1px;
+  font-size: 14px;
+  background: var(--card-text-background-color);
+}
+
+#abilityContainerHero {
+  position: relative;
+  display: grid;
+  grid-row-gap: 5px;
+  height: 100px;
+}
+
+#abilityContainerHero div {
+  position: relative;
+  display: flex;
+  border: solid 1px;
+  font-size: 9px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-text-background-color);
+}
+
+.ability {
+  cursor: pointer;
+}
+
+.ability:hover {
+  background: lightgrey!important;
+}
+
+#buttonContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#buttonContainer button{
+  width: 150px;
+  height: 50px;
+}
+
+#buttonContainer #resetButton {
+ margin-top: 60px;
+ background-color: #4CAF50;
+ border: 1px solid green;
+ border-radius: 2px;
+}
+
+#buttonContainer .isAttacking {
+ background-color: #EE4B2B;
+ border: 1px solid red;
+ border-radius: 2px;
+}
+
+#resourcesContainer {
+/*  position: absolute;*/
+  display: flex;
+  flex-direction: column;
+  right: 10%;
+  gap: 5px;
+}
+
+#resourcesContainer div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  border: solid 1px black;
+}
+
+#orangeResource {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  background: orange;
+}
+
+#redResource {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  background: red;
+}
+
+#blueResource {
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  background: blue;
+}
+
+#totalResources {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Beast */
+
+#cardFrameBeast{
+  transition: width 0.2s ease-in, height 0.2s ease-in, padding 0.2s ease-in;
+}
+
+#imageBeastContainer {
+  display: flex;
+  position: relative;
+  height: 48%;
+  border: solid 1px;
+}
+
+#imageBeast{
+  width: 100%;
+}
+
+#lifeCountersBeast {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: grid;
+  align-content: space-around;
+  padding: 5px;
+  transition: padding 0.2s ease-in;
+}
+
+#lifeCountersBeast div {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px;
+  border-radius: 100vh;
+  height: 26px;
+  width: 26px;
+  transition: width 0.2s ease-in, height 0.2s ease-in;
+}
+
+#lifeCountersBeast .inner-circle {
+  position: relative;
+  border: solid 1px;
+  border-radius: 100vh;
+  height: 22px;
+  width: 22px;
+  background: white;
+  transition: width 0.2s ease-in, height 0.2s ease-in;
+}
+
+#nameContainerBeast {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  left: 50%;
+  margin-top: 3%;
+  margin-bottom: 2%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 10%;
+  border: solid 1px;
+  background: var(--card-text-background-color);
+}
+
+#defense {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -73%;
+  outline: solid 1px black;
+  background: red;
+  width: 30px;
+  height: 30px;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  transition: width 0.2s ease-in, height 0.2s ease-in, font-size 0.2s ease-in;
+}
+
+#nameBeast {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 89%;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  transition: font-size 0.2s ease-in;
+}
+
+#abilityContainerBeast {
+  position: relative;
+  display: grid;
+  grid-row-gap: 4px;
+  height: 37%;
+}
+
+#abilityContainerBeast div {
+  position: relative;
+  display: flex;
+  border: solid 1px;
+  font-size: 8px;
+  text-align: center;
+  align-items: center;
+  background: var(--card-text-background-color);
+  transition: font-size 0.2s ease-in;
+}
+
+.passive {
+  cursor: -webkit-zoom-in;
+  cursor: zoom-in;
+}
+
+
+/* Combat History */
+
+#combatHistory {
+  border: solid 1px;
+  border-radius: 4px;
+  width: 200px;
+  height: 280px;
+  padding: 4px;
+  font-size: 10px;
+  text-align: center;
+  overflow-y: auto;
+}
+
+#alertMsg[aria-expanded="false"]{
+  display: none;
+}
+
+#alertMsg[aria-expanded="true"]{
+  display: flex;
+  min-width: 200px;
+  min-height: 100px;
+  transition: width 0.5s;
+  position: absolute;
+  z-index: 4;
+  border: solid 1px black;
+  border-radius: 8px;
+  padding: 1em;
+  text-align: center;
+  background: var(--card-text-background-color);
+  top: 315px;
+  left: 295px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Testing This */
+#hero-zone{
+  min-width: 225px;
+}
+
+#beast-zone{
+    --variable-size: 1rem
+}
+
+/* Hand Card */
+#hand-zone{
+  position: fixed;
+  bottom: 0;
+}
+
+.handPlayingCard {
+  position: absolute;
+  bottom: 5px;
+  left: 200px;
+  margin-inline: auto;
+  padding: 5px;
+  height: 280px;
+  width: 200px;
+  border: solid 1px;
+  gap: 5px;
+}
+
+#hand-card-container{
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.imageHand {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 98%;
+  height: 138px;
+  border: solid 1px;
+}
+
+#nameContainerHand {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  left: 50%;
+  margin-top: 3%;
+  margin-bottom: 2%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 10%;
+  border: solid 1px;
+}
+
+#cost {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -73%;
+  outline: solid 1px black;
+  background: blue;
+  width: 30px;
+  height: 30px;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#nameHand {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 89%;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+}
+
+#handContainerPassive {
+  display: grid;
+  height: 100px;
+}
+
+#handContainerPassive div {
+  position: relative;
+  display: flex;
+  border: solid 1px;
+  padding: 0.5em;
+  font-size: 12px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.isLeft {
+  left: 50px;
+  background: white;
+  transform: rotate(-5deg);
+  box-shadow: 2px 2px 4px 0px rgba(58, 55, 56, 0.25);
+}
+
+.isMiddle{
+  z-index: 2;
+  background: white;
+  bottom: 15px;
+  box-shadow: 2px 2px 4px 0px rgba(58, 55, 56, 0.25);
+}
+
+.isRight {
+  left: 350px;
+  background: white;
+  transform: rotate(5deg);
+  box-shadow: -2px 2px 4px 0px rgba(58, 55, 56, 0.25);
+}
+
+.isLeft:hover, 
+.isMiddle:hover, 
+.isRight:hover {
+  z-index: 3;
+}
+
+/* Zoom-In - Beast*/
+
+#cardFrameBeast.zoom {
+  padding: 10px;
+  height: 560px;
+  width: 400px;
+  gap: 10px;
+}
+
+#cardFrameBeast.zoom #lifeCountersBeast {
+  padding: 10px;
+}
+
+#cardFrameBeast.zoom #lifeCountersBeast div {
+  height: 52px;
+  width: 52px;
+}
+
+#cardFrameBeast.zoom #lifeCountersBeast .inner-circle {
+  height: 44px;
+  width: 44px;
+}
+
+#cardFrameBeast.zoom #defense {
+  width: 60px;
+  height: 60px;
+  font-size: 48px;
+}
+
+#cardFrameBeast.zoom #nameBeast {
+  font-size: 24px;
+}
+
+#cardFrameBeast.zoom #abilityContainerBeast {
+  position: relative;
+  display: grid;
+  grid-row-gap: 4px;
+  height: 37%;
+}
+
+#cardFrameBeast.zoom #abilityContainerBeast div {
+  font-size: 16px;
+}
+
+#cardFrameBeast.zoom .passive {
+  cursor: -webkit-zoom-in;
+  cursor: zoom-out;
+}
