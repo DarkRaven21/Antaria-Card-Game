@@ -285,6 +285,8 @@ body {
   font-size: 8px;
   text-align: center;
   align-items: center;
+  justify-content: center;
+  padding: 0.3rem;
   background: var(--card-text-background-color);
   transition: font-size 0.2s ease-in;
 }
@@ -337,7 +339,10 @@ body {
 }
 
 #beast-zone{
-    --variable-size: 1rem
+  --variable-size: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
 }
 
 /* Hand Card */

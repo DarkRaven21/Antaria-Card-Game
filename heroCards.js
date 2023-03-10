@@ -1,24 +1,25 @@
 const heroes = [
-    {
-        cardClass: "",
-        name:"", 
-        life:"", 
-        startTurnPassive1:"", 
-        startTurnPassive2:"", 
-        endTurnPassive1:"", 
-        endTurnPassive2:"", 
-        conditionalPassive1:"",
-        conditionalPassive2:"",
-        ability1: "",
-        ability2: "",
-        ability3: "",
-        abilityText1: "",
-        abilityText2: "",
-        abilityText3: ""
-    }
+    //{
+    // cardClass: "",
+    // name:"", 
+    // life:"", 
+    // startTurnPassive1:"", 
+    // startTurnPassive2:"", 
+    // endTurnPassive1:"", 
+    // endTurnPassive2:"", 
+    // conditionalPassive1:"",
+    // conditionalPassive2:"",
+    // ability1: "",
+    // ability2: "",
+    // ability3: "",
+    // abilityText1: "",
+    // abilityText2: "",
+    // abilityText3: ""
+    //}
 ]
     
 let monnet = {
+    id: 0,
     cardClass: "monnet",
     name:"Monnet", 
     life:"4", 
@@ -53,5 +54,4 @@ let monnet = {
     abilityText2: "Herir (3)<br>Aplica un contador a la Bestia seleccionada",
     abilityText3: "" 
 }
-
 heroes.push(monnet)

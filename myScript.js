@@ -43,14 +43,17 @@
     
     function startGame(){
       if (isInitialFase == "false"){
+        populateDeck(beastDeck, beasts);
+        populateDeck(heroDeck, heroes);
         clearResources();
         getResources();
-        getBeasts();
+        loopBeastZone();
         getHeroes();
         getAbilities();
         getHandCards();
         addTargets();
         checkStartTurnPassives();
+        checkStartTurnItems();
         startButton.disabled = true
         startButton.textContent = "Comenzar turno"
         attackButton.disabled = false
@@ -74,20 +77,22 @@
     
     function resetGame(){
       if (confirm("¿Está seguro que quiere reiniciar la partida?")){
-        endTurn();
-        clearBeastCard();
-        clearHeroCard();
-        clearHandCard();
-        attackButton.disabled = true;
-        endButton.disabled = true;
-        isGameStarted = "false";
-        startButton.textContent = "Comenzar juego";
-        combatHistory.textContent = ""
-        let lifeInner = document.getElementsByClassName("inner-circle");
-        for (i=0; i<lifeInner.length; i++){
-          lifeInner[i].dataset.wounded = "false"
-          lifeInner[i].style.backgroundColor = "white"
-        }
+        window.location.reload();
+        //Dejo esto comentado para limpieza mas tarde
+        // endTurn();
+        // clearBeastCard();
+        // clearHeroCard();
+        // clearHandCard();
+        // attackButton.disabled = true;
+        // endButton.disabled = true;
+        // isGameStarted = "false";
+        // startButton.textContent = "Comenzar juego";
+        // combatHistory.textContent = ""
+        // let lifeInner = document.getElementsByClassName("inner-circle");
+        // for (i=0; i<lifeInner.length; i++){
+        //   lifeInner[i].dataset.wounded = "false"
+        //   lifeInner[i].style.backgroundColor = "white"
+        // }
       }
     }
     
@@ -118,33 +123,22 @@
         }
       }
     updateResourcesDivs();
-    }
-    
-    function checkStartTurnPassives(){
-      beasts.forEach(beast => {if(beast.startTurnPassive1 != "" && beast.isAlive == "true"){
-        beast.startTurnPassive1();
+    }  
+
+    function checkStartTurnItems(){
+      let zone = document.getElementById("hero-zone");
+      let activeHero = zone.querySelectorAll("#cardFrameHero");
+      for (let i=0; i<activeHero.length; i++){
+        if (activeHero[i].dataset.item != ""){
+          let id = activeHero[i].dataset.item;
+          if (neutrals[id].startTurnItem1 != ""){    
+            neutrals[id].startTurnItem1();
+            if (neutrals[id].startTurnItem2 != ""){
+              neutrals[id].startTurnItem2();
+            }
+          }
+        }
       }
-      if(beast.startTurnPassive2 != "" && beast.isAlive == "true"){
-        beast.startTurnPassive2();
-      }})
-    }
-    
-    function checkEndTurnPassives(){
-      beasts.forEach(beast => {if(beast.endTurnPassive1 != "" && beast.isAlive == "true"){
-        beast.endTurnPassive1();
-      }
-      if(beast.endTurnPassive2 != "" && beast.isAlive == "true"){
-        beast.endTurnPassive2();
-      }})
-    }
-    
-    function checkConditionalPassives(){
-      beasts.forEach(beast => {if(beast.conditionalPassive1 != "" && beast.isAlive == "true"){
-        beast.conditionalPassive1();
-      }
-      if(beast.conditionalPassive2 != "" && beast.isAlive == "true"){
-        beast.conditionalPassive2();
-      }})
     }
     
     function addTargets(){
@@ -171,40 +165,6 @@
       attackButton.classList.remove("isAttacking");
       isAttacking = "false"
     };
-    
-    function paintRed(){
-      if (this.dataset.type == "hero"){
-        showMsg("You can't attack heroes")
-        removeAttack()
-        return
-      }
-      if (redResource >= this.dataset.defense){
-      let life = this.getElementsByClassName("inner-circle")
-      let name = this.querySelector("#nameBeast").textContent
-      let lifeArray = Array.from(life);
-      for (i=0; i < life.length; i++){
-        if (life[i].dataset.wounded == "false"){
-          life[i].setAttribute("data-wounded", "true");
-          life[i].style.backgroundColor = "red";
-          totalLife = lifeArray.filter(life => (life.dataset.wounded=="true"));
-          if (totalLife.length == life.length){
-            writeInCombatHistory("You've slained " + name)
-            showMsg("This Beast is DEAD")
-            beasts[1].isAlive = "false";
-            break
-          }
-          writeInCombatHistory("Has herido a " + name);
-          break;
-        }
-      }
-      redResource -= this.dataset.defense;
-      updateResourcesDivs();
-      removeAttack()
-      checkConditionalPassives() //Esto se chequea al finalizar el ataque
-      }
-      else {showMsg("No tienes el poder suficiente")}
-      removeAttack();
-    }
     
     function removeRed(cardName){
       let thisCard = document.getElementsByClassName(cardName);
@@ -249,34 +209,34 @@
     let isGameStarted = "false"
     let isBigger = "false";
     
-    function getBeasts(){
-      if (isGameStarted == "false"){
-      let frame = document.getElementById("cardFrameBeast");
-      let passives = document.getElementsByClassName("passive");
-      let name = document.getElementById("nameBeast");
-      let defense = document.getElementById("defense");
-      let lifeCounters = document.getElementById("lifeCountersBeast");
-      name.textContent = beasts[1].name;
-      frame.dataset.defense = beasts[1].defense;
-      frame.dataset.orangeRatio = beasts[1].orangeRatio;
-      frame.dataset.redRatio = beasts[1].redRatio;
-      frame.dataset.blueRatio = beasts[1].blueRatio;
-      defense.textContent = beasts[1].defense;
-      for (i=0; i < beasts[1].life; i++){
-        let circle = document.createElement("div");
-        let innerCircle = document.createElement("div");
-        circle.classList.add("counter");
-        innerCircle.classList.add("inner-circle");
-        innerCircle.setAttribute("data-wounded", "false");
-        circle.appendChild(innerCircle);
-        lifeCounters.appendChild(circle);    
-      }
-      passives[0].textContent = beasts[1].passiveText1;
-      passives[1].textContent = beasts[1].passiveText2;
-      passives[2].textContent = beasts[1].passiveText3;
-    //isGameStarted = "true";
-      }
-    }
+    // function getBeasts(){
+    //   if (isGameStarted == "false"){
+    //   let frame = document.getElementById("cardFrameBeast");
+    //   let passives = document.getElementsByClassName("passive");
+    //   let name = document.getElementById("nameBeast");
+    //   let defense = document.getElementById("defense");
+    //   let lifeCounters = document.getElementById("lifeCountersBeast");
+    //   name.textContent = beasts[1].name;
+    //   frame.dataset.defense = beasts[1].defense;
+    //   frame.dataset.orangeRatio = beasts[1].orangeRatio;
+    //   frame.dataset.redRatio = beasts[1].redRatio;
+    //   frame.dataset.blueRatio = beasts[1].blueRatio;
+    //   defense.textContent = beasts[1].defense;
+    //   for (i=0; i < beasts[1].life; i++){
+    //     let circle = document.createElement("div");
+    //     let innerCircle = document.createElement("div");
+    //     circle.classList.add("counter");
+    //     innerCircle.classList.add("inner-circle");
+    //     innerCircle.setAttribute("data-wounded", "false");
+    //     circle.appendChild(innerCircle);
+    //     lifeCounters.appendChild(circle);    
+    //   }
+    //   passives[0].textContent = beasts[1].passiveText1;
+    //   passives[1].textContent = beasts[1].passiveText2;
+    //   passives[2].textContent = beasts[1].passiveText3;
+    // //isGameStarted = "true";
+    //   }
+    // }
     
     function clearBeastCard(){
       let passives = document.getElementsByClassName("passive");
@@ -298,7 +258,8 @@
     }
     
     function makeBigger(){
-      let frame = document.getElementById("cardFrameBeast");
+      //let frame = document.getElementById("cardFrameBeast");
+      let frame = this.parentNode.parentNode.parentNode;
       
       if (isBigger == "false"){
         frame.classList.add("zoom");
@@ -312,14 +273,16 @@
     
     function getHeroes(){ 
       if (isGameStarted == "false"){
+      let frame = document.getElementById("cardFrameHero");
       let cardClass = document.getElementById("cardContainer");
       let name = document.getElementById("nameHero");
       let abilities = document.getElementsByClassName("ability")
       let lifeCounters = document.getElementById("lifeCountersHero")
       //Filling the Card with data
-      cardClass.classList.add(heroes[1].cardClass);
-      name.textContent = heroes[1].name;
-      for (i=0; i < heroes[1].life; i++){
+      frame.dataset.id = heroes[heroDeck[0]].id;
+      cardClass.classList.add(heroes[heroDeck[0]].cardClass);
+      name.textContent = heroes[heroDeck[0]].name;
+      for (i=0; i < heroes[heroDeck[0]].life; i++){
         let circle = document.createElement("div");
         let innerCircle = document.createElement("div");
         circle.classList.add("counter");
@@ -328,9 +291,9 @@
         circle.appendChild(innerCircle);
         lifeCounters.appendChild(circle);   
       }
-      abilities[0].innerHTML = heroes[1].abilityText1;
-      abilities[1].innerHTML = heroes[1].abilityText2;
-      abilities[2].innerHTML = heroes[1].abilityText3;
+      abilities[0].innerHTML = heroes[heroDeck[0]].abilityText1;
+      abilities[1].innerHTML = heroes[heroDeck[0]].abilityText2;
+      abilities[2].innerHTML = heroes[heroDeck[0]].abilityText3;
       for (let i = 0; i < abilities.length; i++) {
         if (abilities[i].textContent === ""){
             abilities[i].remove();
@@ -371,17 +334,6 @@
       }
     }
     
-    function useAbility(){
-      let thisAbility = this.id;
-      if (thisAbility == "ability1"){
-        heroes[1].ability1()
-      } else if (thisAbility == "ability2"){
-        heroes[1].ability2()
-      } else if (thisAbility == "ability3") {
-        heroes[1].ability3();
-      }
-    }
-    
     //Small recap to add some alert msg
     let alertMsg = document.getElementById("alertMsg");
     
@@ -402,19 +354,6 @@
     let actionCost = 0;
     let actionTarget = "none";
     let actionType = "none";
-    
-    function paintRedMsg(){
-      if (actionType == "none") {return};
-      if (actionType == "attack"){
-        performAttack(this);
-      }
-      if (actionType == "ability"){
-        performAbility(this);
-      }
-      if (actionType == "magic"){
-        performMagic(this);
-      }
-    }
 
     function doDamage(recievedCost, receivedTarget, receivedType){
       if (receivedType == "ability"){
@@ -430,7 +369,7 @@
         }
       }
       else if (receivedType == "magic"){
-        if (blueResource >= recievedCost){
+        if (true){
           actionCost = recievedCost;
           actionTarget = receivedTarget;
           actionType = receivedType;
@@ -447,6 +386,19 @@
           actionType = receivedType;
           showMsg(`Pick a ${receivedTarget} card`);
           return 
+      }
+    }
+
+    function paintRedMsg(){
+      if (actionType == "none") {return};
+      if (actionType == "attack"){
+        performAttack(this);
+      }
+      if (actionType == "ability"){
+        performAbility(this);
+      }
+      if (actionType == "magic"){
+        performMagic(this);
       }
     }
     
@@ -521,20 +473,19 @@
     }
     }
     
-    
     function paintRedNew(beast){
+      let id = beast.dataset.id;
       let life = beast.getElementsByClassName("inner-circle")
       let name = beast.querySelector("#nameBeast").textContent
-      let lifeArray = Array.from(life);
       for (i=0; i < life.length; i++){
         if (life[i].dataset.wounded == "false"){
           life[i].setAttribute("data-wounded", "true");
           life[i].style.backgroundColor = "red";
-          totalLife = lifeArray.filter(life => (life.dataset.wounded=="true"));
-          if (totalLife.length == life.length){
+          beasts[id].life--;
+          if (beasts[id].life <= 0){
             writeInCombatHistory("You've slained " + name)
             showMsg("This Beast is DEAD")
-            beasts[1].isAlive = "false";
+            beasts[id].isAlive = "false";
             break
           }
           writeInCombatHistory("Has herido a " + name);
@@ -570,26 +521,44 @@
 
     function addClickToHandCard(card){
       if(isGameStarted == "false"){
-        card.addEventListener("click", usingMagic);
+        card.addEventListener("click", useCard);
       }
     }
 
     function completeCard(card){
-      let magicId = getRandomNumber(1, (magics.length - 1)); //Esto me busca en el mazo de cartas la carta elegida
+      let cardId = getRandomNumber(1, (neutrals.length - 1)); //Esto me busca en el mazo de cartas la carta elegida
       //let img = card.querySelector(".imageHand"); not working right now
+      //Lo de arriba lo voy a tener que cambiar cuando tenga el mazo terminado
       let name = card.querySelector("#nameHand");
       let cost = card.querySelector("#cost");
       let passiveText = card.querySelector(".handPassive");
 
-      card.dataset.id = magicId;
-      name.textContent = magics[magicId].name;
-      cost.textContent = magics[magicId].cost;
-      passiveText.textContent = magics[magicId].passiveText1;
+      card.dataset.id = cardId;
+      card.dataset.type = neutrals[cardId].type;
+      name.textContent = neutrals[cardId].name;
+      cost.textContent = neutrals[cardId].cost;
+      passiveText.textContent = neutrals[cardId].passiveText1;
     }
 
-    function usingMagic(){
-      magics[this.dataset.id].conditionalPassive1();
-      magicCardInUse = this;
+    function useCard(){
+      if (this.dataset.type == 'magic'){
+        useMagic(this)
+      }
+      else if (this.dataset.type == 'item'){
+        useItem(this);
+      }
+    }
+
+    function useMagic(card){
+      neutrals[card.dataset.id].conditionalPassive1();
+      magicCardInUse = card;
+    }
+
+    function useItem(card){
+      alert("using " + neutrals[card.dataset.id].name);
+      //neutrals[card.dataset.id].conditionalPassive1();
+      //magicCardInUse = card;
+      //Seguirla despues
     }
 
     function clearHandCard(){
@@ -600,7 +569,7 @@
         handCards[i].querySelector("#nameHand").textContent = "";
         handCards[i].querySelector("#cost").textContent = "";
         handCards[i].querySelector(".handPassive").textContent = "";
-        handCards[i].removeEventListener("click", usingMagic);
+        handCards[i].removeEventListener("click", useCard);
       }
     }
 
@@ -613,3 +582,164 @@
       card.style.display = "";
       magicCardInUse = "";
     }
+
+    //new
+
+    function updateCard(id){
+      let zone = document.getElementById("beast-zone");
+      let card = zone.querySelector("[data-id='"+id+"']");
+      card.dataset.defense = beasts[id].defense;
+      card.querySelector("#defense").textContent = beasts[id].defense;
+    }
+
+    function checkEndTurnPassives(){
+      let zone = document.getElementById("beast-zone");
+      let activeBeast = zone.querySelectorAll("#cardFrameBeast");
+      for (let i=0; i<activeBeast.length; i++){
+        if (beasts[activeBeast[i].dataset.id].isAlive == "true" && beasts[activeBeast[i].dataset.id].endTurnPassive1 != ""){
+          beasts[activeBeast[i].dataset.id].endTurnPassive1();
+          if (beasts[activeBeast[i].dataset.id].endTurnPassive2 != "") {
+            beasts[activeBeast[i].dataset.id].endTurnPassive2();
+          }
+        }   
+      }
+    }
+    
+    function checkStartTurnPassives(){
+      let zone = document.getElementById("beast-zone");
+      let activeBeast = zone.querySelectorAll("#cardFrameBeast");
+      for (let i=0; i<activeBeast.length; i++){
+        if (beasts[activeBeast[i].dataset.id].isAlive == "true" && beasts[activeBeast[i].dataset.id].startTurnPassive1 != ""){
+          beasts[activeBeast[i].dataset.id].startTurnPassive1();
+          if (beasts[activeBeast[i].dataset.id].startTurnPassive2 != "") {
+            beasts[activeBeast[i].dataset.id].startTurnPassive2();
+          }
+        }   
+      }
+    }
+    
+    function checkConditionalPassives(){
+      let zone = document.getElementById("beast-zone");
+      let activeBeast = zone.querySelectorAll("#cardFrameBeast");
+      for (let i=0; i<activeBeast.length; i++){
+        if (beasts[activeBeast[i].dataset.id].isAlive == "true" && beasts[activeBeast[i].dataset.id].conditionalPassive1 != ""){
+          beasts[activeBeast[i].dataset.id].conditionalPassive1();
+          if (beasts[activeBeast[i].dataset.id].conditionalPassive2 != "") {
+            beasts[activeBeast[i].dataset.id].conditionalPassive2();
+          }
+        }   
+      }
+    }
+    
+    function loopBeastZone(){
+      if (isGameStarted == "false"){
+        let zone = document.getElementById("beast-zone");
+        let activeBeast = zone.querySelectorAll("#cardFrameBeast");
+        for (let i=0; i<activeBeast.length; i++){
+          fillBeastCard(activeBeast[i]);
+        }
+      }
+    }
+    
+    function fillBeastCard(frame){
+      frame.dataset.defense = beasts[beastDeck[0]].defense;
+      frame.dataset.id = beasts[beastDeck[0]].id;
+      frame.dataset.redRatio = beasts[beastDeck[0]].redRatio;
+      frame.dataset.blueRatio = beasts[beastDeck[0]].blueRatio;
+      frame.dataset.orangeRatio = beasts[beastDeck[0]].orangeRatio;
+      frame.querySelector("#nameBeast").textContent = beasts[beastDeck[0]].name;
+      frame.querySelector("#defense").textContent = beasts[beastDeck[0]].defense;
+      let passives = frame.getElementsByClassName("passive");
+      passives[0].textContent = beasts[beastDeck[0]].passiveText1;
+      passives[1].textContent = beasts[beastDeck[0]].passiveText2;
+      passives[2].textContent = beasts[beastDeck[0]].passiveText3;
+      addLifeToCard(frame, beastDeck[0]);
+      beastDeck.shift();
+    }
+    
+    function addLifeToCard(frame, id){
+      for (let i=0; i < beasts[id].life; i++){
+        let lifeCounters = frame.querySelector("#lifeCountersBeast");
+        let circle = document.createElement("div");
+        let innerCircle = document.createElement("div");
+        circle.classList.add("counter");
+        innerCircle.classList.add("inner-circle");
+        innerCircle.setAttribute("data-wounded", "false");
+        circle.appendChild(innerCircle);
+        lifeCounters.appendChild(circle);    
+      }
+    }
+
+    function useAbility(){
+      let thisAbility = this.id;
+      let cardId = this.parentNode.parentNode.parentNode.dataset.id;
+      if (thisAbility == "ability1"){
+        heroes[cardId].ability1()
+      } else if (thisAbility == "ability2"){
+        heroes[cardId].ability2()
+      } else if (thisAbility == "ability3") {
+        heroes[cardId].ability3();
+      }
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// La idea es que populateDeck() va a llenar los arrays con indexes correlativos
+// Cada uno representando una carta del mazo base.
+// shuffle() va a tomar esos arrays y los va a reorganizar, barajando así el mazo.
+// Cuando llamemos entonces al array[0] el index que nos dará como resultado será 
+// la carta que tomaremos del mazo en primer lugar.
+// array[0] = 5. entonces llamamos a beasts[5];
+// tempArrayShow nos da una idea de como funcionaría el sistema;
+
+
+let beastDeck = [];
+let heroDeck = [];
+let handDeck = [];
+var nameArray = ["Pablo","Carlos","Sofia","Romina","Laura","Ana","Sara","Paul","Omar","Joaco"];
+
+function populateDeck(deck, base){
+  for (let i=0; i < base.length; i++){
+    deck[i] = i;
+  }
+  shuffle(deck);
+}
+
+function shuffle(deck){
+  let i = deck.length;
+  while (--i > 0) {
+    let temp = Math.floor(Math.random() * (i + 1));
+    [deck[temp], deck[i]] = [deck[i], deck[temp]];
+  }
+}
+
+
+function tempArrayShow(deck, base){
+  let tempDeck = [];
+  for (let i=0; i < base.length; i++){
+    let x = deck[i];
+    tempDeck[i] = base[x];
+  }
+  console.log(tempDeck);
+}
+//
+    

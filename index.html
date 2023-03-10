@@ -15,7 +15,7 @@
         <button id="resetButton">Reiniciar juego</button>
     </div>
     <div id="hero-zone">
-        <div id="cardFrameHero" class="playingCard" data-type="hero" data-defense="">
+        <div id="cardFrameHero" class="playingCard" data-type="hero" data-id="" data-item="">
             <div id="cardContainer">
                 <div id="imageHero"></div>
                 <div id="lifeCountersHero"></div>
@@ -46,6 +46,24 @@
                 </div>
             -->
                 </div> 
+            </div>
+                <div id="nameContainerBeast">
+                <div id="nameBeast"></div>
+                <div id="defense"></div>
+            </div>
+            <div id="abilityContainerBeast">
+                <div class=passive></div>
+                <div class=passive></div>
+                <div class=passive></div>
+            </div>
+            </div>
+        </div>
+
+        <div id="cardFrameBeast" class="playingCard" data-type="beast" data-defense="2">
+            <div id="cardContainer">
+            <div id="imageBeastContainer">
+                <div id="imageBeast"></div>
+                <div id="lifeCountersBeast"></div> 
             </div>
                 <div id="nameContainerBeast">
                 <div id="nameBeast"></div>
@@ -114,7 +132,10 @@
 
 </body>
 <script src="myScript.js"></script>
-<script src="magicCards.js"></script>
+<script src="beastPassives.js"></script>
+<script src="heroesActives&Passives.js"></script>
+<script src="neutralsActives&Passives.js"></script>
+<script src="neutralCards.js"></script>
 <script src="beastCards.js"></script>
 <script src="heroCards.js"></script>
 </html>
