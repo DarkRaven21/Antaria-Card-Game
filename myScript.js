@@ -270,6 +270,19 @@
         isBigger = "false";
       }
     }
+
+    let showItemBtn = document.querySelectorAll("#item-btn")
+    for (let i=0; i < showItemBtn.length; i++){
+      showItemBtn[i].addEventListener("click", showItemCard)
+    }
+
+    function showItemCard(){
+      if (this.parentNode.classList.contains("first")){
+        this.parentNode.classList.remove("first");
+      } else {
+        this.parentNode.classList.add("first");
+      }
+    }
     
     function getHeroes(){ 
       if (isGameStarted == "false"){
@@ -555,10 +568,20 @@
     }
 
     function useItem(card){
-      alert("using " + neutrals[card.dataset.id].name);
-      //neutrals[card.dataset.id].conditionalPassive1();
-      //magicCardInUse = card;
-      //Seguirla despues
+      //alert("using " + neutrals[card.dataset.id].name);
+      actionCost = card.querySelector("#cost").textContent;
+      actionType = "item";
+      actionTarget = "hero";
+      showMsg("Elige un heroe");
+      addGlow();
+    }
+
+    function addGlow(){
+      let zone = document.getElementById("hero-zone");
+      let heroes = zone.querySelectorAll("#cardFrameHero");
+      for(let i=0; i<heroes.length; i++){
+        heroes[i].querySelector("#imageHero").classList.add("glow");
+      }
     }
 
     function clearHandCard(){
@@ -681,8 +704,6 @@
         heroes[cardId].ability3();
       }
     }
-    
-
 
 
 

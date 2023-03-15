@@ -15,19 +15,35 @@
         <button id="resetButton">Reiniciar juego</button>
     </div>
     <div id="hero-zone">
-        <div id="cardFrameHero" class="playingCard" data-type="hero" data-id="" data-item="">
-            <div id="cardContainer">
-                <div id="imageHero"></div>
-                <div id="lifeCountersHero"></div>
-                <div id="nameHero"></div>
-                <div id="abilityContainerHero">
-                    <div id=ability1 class=ability></div>
-                    <div id="ability2" class=ability></div>
-                    <div id="ability3" class=ability></div>
+        <div class="full-hero">
+            <div id="cardFrameHero" class="playingCard" data-type="hero" data-id="" data-item="">
+                <div id="cardContainer">
+                    <div id="imageHero"></div>
+                    <div id="lifeCountersHero"></div>
+                    <div id="nameHero"></div>
+                    <div id="abilityContainerHero">
+                        <div id=ability1 class=ability></div>
+                        <div id="ability2" class=ability></div>
+                        <div id="ability3" class=ability></div>
+                    </div>
                 </div>
             </div>
-        </div>
+            <div id="" class="item-equipped" data-type="hand" data-id="">
+                <div id="item-equipped-container">
+                    <div class="item-equipped-image"></div>
+                    <div id="nameContainerHand">
+                        <div id="nameHand"></div>
+                        <div id="cost"></div>
+                    </div>  
+                    <div id="handContainerPassive">
+                        <div class=handPassive></div>
+                    </div>
+                </div>
+                <button id="item-btn">Ver</button>
+            </div>
+        </div>        
     </div>
+
     <div id="beast-zone">
         <div id="cardFrameBeast" class="playingCard" data-type="beast" data-defense="2">
             <div id="cardContainer">

@@ -351,7 +351,8 @@ body {
   bottom: 0;
 }
 
-.handPlayingCard {
+.handPlayingCard,
+.item-equipped {
   position: absolute;
   bottom: 5px;
   left: 200px;
@@ -363,14 +364,16 @@ body {
   gap: 5px;
 }
 
-#hand-card-container{
+#hand-card-container,
+#item-equipped-cotainer {
   position: relative;
   height: 100%;
   width: 100%;
   overflow: hidden;
 }
 
-.imageHand {
+.imageHand,
+.item-equipped-image {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
@@ -507,4 +510,92 @@ body {
 #cardFrameBeast.zoom .passive {
   cursor: -webkit-zoom-in;
   cursor: zoom-out;
+}
+
+/* Item Equipped */
+
+/* Tengo que sacar border top y padding top, para que parezca que la carta esta atras de la otra */
+.full-hero {
+  position: relative;
+}
+
+.item-equipped {
+  display: none;
+  position: absolute;
+  left: 13px;
+  top: 6px;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  background-color: grey;
+}
+
+.item-equipped .handPassive {
+  height: 84px;
+}
+
+.item-equipped:not(.first){
+  animation: put-on-bottom 0.45s;
+  z-index: 1;
+}
+
+.item-equipped.first {
+  animation: put-on-top 0.45s;
+  z-index: 4;
+}
+
+#item-btn{
+  position: absolute;
+  transform: translate(-50%);
+  left: 50%;
+  bottom: -25px;
+  bottom: -26px;
+  padding: 0.2em 0.5em;
+}
+
+/* Ver esto */
+#imageHero.glow:is[data-item="2"] {
+  box-shadow: 0 -1px 10px 1px #981e1e;
+  /* cardContainer tiene overflow hidden y por eso la sombra se ve medio feo */
+}
+
+#cardFrameHero #cardContainer {
+  overflow: initial
+}
+
+@keyframes put-on-top {
+  0% {
+    left: 13px;
+    top: 6px;
+    z-index: 1;
+  }
+  50% {
+    left: 130px;
+    transform: rotate(5deg);
+    z-index: 4;
+  }
+  100% {
+    z-index: 4;
+    left: 13px;
+    top: 6px;
+    transform: rotate(0);
+  }
+}
+
+@keyframes put-on-bottom {
+  0% {
+    left: 13px;
+    top: 6px;
+    z-index: 4;
+  }
+  50% {
+    left: 130px;
+    transform: rotate(5deg);
+  }
+  100% {
+    z-index: 1;
+    left: 13px;
+    top: 6px;
+    transform: rotate(0);
+  }
 }
