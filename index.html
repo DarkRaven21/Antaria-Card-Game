@@ -8,102 +8,155 @@
     <link rel="stylesheet" href="mystyle.css">
 </head>
 <body>
+    <!-- Buttons -->
     <div id="buttonContainer">
         <button id="startButton">Comenzar juego</button>
         <button id="attackButton" disabled>Atacar</button>
         <button id="endButton" disabled>Finalizar turno</button>
         <button id="resetButton">Reiniciar juego</button>
     </div>
-    <div id="hero-zone">
-        <div class="full-hero">
-            <div id="cardFrameHero" class="playingCard" data-type="hero" data-id="" data-item="">
+    <!-- Zones -->
+    <div id="zones">
+        <div id="hero-zone">
+            <div class="full-hero">
+                <div id="cardFrameHero" class="playingCard" data-type="hero" data-id="" data-item="">
+                    <div id="cardContainer">
+                        <div id="imageHero"></div>
+                        <div id="lifeCountersHero"></div>
+                        <div id="nameHero"></div>
+                        <div id="abilityContainerHero">
+                            <div id=ability1 class=ability></div>
+                            <div id="ability2" class=ability></div>
+                            <div id="ability3" class=ability></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="" class="item-equipped" data-type="hand" data-id="">
+                    <div id="item-equipped-container">
+                        <div class="item-equipped-image"></div>
+                        <div id="nameContainerHand">
+                            <div id="nameHand"></div>
+                            <div id="cost"></div>
+                        </div>  
+                        <div id="handContainerPassive">
+                            <div class=handPassive></div>
+                        </div>
+                    </div>
+                    <button id="item-btn">Ver</button>
+                </div>
+            </div>
+            
+            <div class="full-hero">
+                <div id="cardFrameHero" class="playingCard" data-type="hero" data-id="" data-item="">
+                    <div id="cardContainer">
+                        <div id="imageHero"></div>
+                        <div id="lifeCountersHero"></div>
+                        <div id="nameHero"></div>
+                        <div id="abilityContainerHero">
+                            <div id=ability1 class=ability></div>
+                            <div id="ability2" class=ability></div>
+                            <div id="ability3" class=ability></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="" class="item-equipped" data-type="hand" data-id="">
+                    <div id="item-equipped-container">
+                        <div class="item-equipped-image"></div>
+                        <div id="nameContainerHand">
+                            <div id="nameHand"></div>
+                            <div id="cost"></div>
+                        </div>  
+                        <div id="handContainerPassive">
+                            <div class=handPassive></div>
+                        </div>
+                    </div>
+                    <button id="item-btn">Ver</button>
+                </div>
+            </div>        
+            
+        </div>
+    
+        <div id="beast-zone">
+            <div id="cardFrameBeast" class="playingCard" data-type="beast" data-defense="2">
                 <div id="cardContainer">
-                    <div id="imageHero"></div>
-                    <div id="lifeCountersHero"></div>
-                    <div id="nameHero"></div>
-                    <div id="abilityContainerHero">
-                        <div id=ability1 class=ability></div>
-                        <div id="ability2" class=ability></div>
-                        <div id="ability3" class=ability></div>
+                <div id="imageBeastContainer">
+                    <div id="imageBeast"></div>
+                    <div id="lifeCountersBeast">
+                <!--
+                    <div class="counter">
+                    <div class="inner-circle" data-wounded="false"></div>
                     </div>
-                </div>
-            </div>
-            <div id="" class="item-equipped" data-type="hand" data-id="">
-                <div id="item-equipped-container">
-                    <div class="item-equipped-image"></div>
-                    <div id="nameContainerHand">
-                        <div id="nameHand"></div>
-                        <div id="cost"></div>
-                    </div>  
-                    <div id="handContainerPassive">
-                        <div class=handPassive></div>
+                    <div class="counter">
+                    <div class="inner-circle" data-wounded="false"></div>
                     </div>
+                    <div class="counter">
+                    <div class="inner-circle" data-wounded="false"></div>
+                    </div>
+                -->
+                    </div> 
                 </div>
-                <button id="item-btn">Ver</button>
+                    <div id="nameContainerBeast">
+                    <div id="nameBeast"></div>
+                    <div id="defense"></div>
+                </div>
+                <div id="abilityContainerBeast">
+                    <div class=passive></div>
+                    <div class=passive></div>
+                    <div class=passive></div>
+                </div>
+                </div>
             </div>
-        </div>        
-    </div>
+    
+            <div id="cardFrameBeast" class="playingCard" data-type="beast" data-defense="2">
+                <div id="cardContainer">
+                <div id="imageBeastContainer">
+                    <div id="imageBeast"></div>
+                    <div id="lifeCountersBeast"></div> 
+                </div>
+                    <div id="nameContainerBeast">
+                    <div id="nameBeast"></div>
+                    <div id="defense"></div>
+                </div>
+                <div id="abilityContainerBeast">
+                    <div class=passive></div>
+                    <div class=passive></div>
+                    <div class=passive></div>
+                </div>
+                </div>
+            </div>
 
-    <div id="beast-zone">
-        <div id="cardFrameBeast" class="playingCard" data-type="beast" data-defense="2">
-            <div id="cardContainer">
-            <div id="imageBeastContainer">
-                <div id="imageBeast"></div>
-                <div id="lifeCountersBeast">
-            <!--
-                <div class="counter">
-                <div class="inner-circle" data-wounded="false"></div>
+            <!-- <div id="cardFrameBeast" class="playingCard" data-type="beast" data-defense="2">
+                <div id="cardContainer">
+                <div id="imageBeastContainer">
+                    <div id="imageBeast"></div>
+                    <div id="lifeCountersBeast"></div> 
                 </div>
-                <div class="counter">
-                <div class="inner-circle" data-wounded="false"></div>
+                    <div id="nameContainerBeast">
+                    <div id="nameBeast"></div>
+                    <div id="defense"></div>
                 </div>
-                <div class="counter">
-                <div class="inner-circle" data-wounded="false"></div>
+                <div id="abilityContainerBeast">
+                    <div class=passive></div>
+                    <div class=passive></div>
+                    <div class=passive></div>
                 </div>
-            -->
-                </div> 
-            </div>
-                <div id="nameContainerBeast">
-                <div id="nameBeast"></div>
-                <div id="defense"></div>
-            </div>
-            <div id="abilityContainerBeast">
-                <div class=passive></div>
-                <div class=passive></div>
-                <div class=passive></div>
-            </div>
-            </div>
-        </div>
+                </div>
+            </div> -->
 
-        <div id="cardFrameBeast" class="playingCard" data-type="beast" data-defense="2">
-            <div id="cardContainer">
-            <div id="imageBeastContainer">
-                <div id="imageBeast"></div>
-                <div id="lifeCountersBeast"></div> 
-            </div>
-                <div id="nameContainerBeast">
-                <div id="nameBeast"></div>
-                <div id="defense"></div>
-            </div>
-            <div id="abilityContainerBeast">
-                <div class=passive></div>
-                <div class=passive></div>
-                <div class=passive></div>
-            </div>
-            </div>
         </div>
     </div>
-      
-    <div id="resourcesContainer">
-        <div id="totalResources">5</div>
-        <div id="redResource"></div>
-        <div id="blueResource"></div>
-        <div id="orangeResource"></div>
+
+    <!-- Data & Logs -->
+    <div id="data-logs">
+        <div id="resourcesContainer">
+            <div id="totalResources">5</div>
+            <div id="redResource"></div>
+            <div id="blueResource"></div>
+            <div id="orangeResource"></div>
+        </div>
+        <div id="combatHistory"></div>
+        <div id="alertMsg" aria-expanded="false" tabindex="-1"></div>
     </div>
-
-    <div id="combatHistory"></div>
-
-    <div id="alertMsg" aria-expanded="false" tabindex="-1"></div>
 
     <div id="hand-zone">
         <div id="handCardFrame" class="handPlayingCard isLeft" data-type="hand" data-id="">

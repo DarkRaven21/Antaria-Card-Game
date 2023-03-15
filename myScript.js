@@ -52,8 +52,10 @@
         getAbilities();
         getHandCards();
         addTargets();
+        getPlayerLife();
         checkStartTurnPassives();
         checkStartTurnItems();
+        removeGlow();
         startButton.disabled = true
         startButton.textContent = "Comenzar turno"
         attackButton.disabled = false
@@ -67,6 +69,7 @@
       clearResources();
       updateResourcesDivs();
       removeAttack();
+      removeGlow();
       startButton.disabled = false
       attackButton.disabled = true
       endButton.disabled = true
@@ -151,6 +154,7 @@
     }
     
     function attackBeast(){
+      removeGlow();
       if (isAttacking == "false"){
         doDamage(0, "beast", "attack");
         isAttacking = "true"
@@ -179,22 +183,17 @@
     }
     
     function receiveCounter(){
-      let player = document.getElementById("cardFrameHero")
-      let life = player.getElementsByClassName("inner-circle")
-      let lifeArray = Array.from(life);
+      let zone = document.getElementById("hero-zone");
+      let life = zone.querySelectorAll(".inner-circle")
+      
       for (i=0; i < life.length; i++){
         if (life[i].dataset.wounded == "false"){
           life[i].setAttribute("data-wounded", "true");
           life[i].style.backgroundColor = "red";
-          totalLife = lifeArray.filter(life => (life.dataset.wounded=="true"));
-          if (totalLife.length == life.length){
-            alert("Game Over")
-            startButton.disabled = true
-            endButton.disabled = true
-            attackButton.disabled = true
-            resetGame();   
-          }
-          break;
+          playerCounters++;
+          console.log(playerCounters);
+          isGameOver();
+          break
         }
       }
     }
@@ -208,35 +207,6 @@
     let passivesButton = document.getElementsByClassName("passive");
     let isGameStarted = "false"
     let isBigger = "false";
-    
-    // function getBeasts(){
-    //   if (isGameStarted == "false"){
-    //   let frame = document.getElementById("cardFrameBeast");
-    //   let passives = document.getElementsByClassName("passive");
-    //   let name = document.getElementById("nameBeast");
-    //   let defense = document.getElementById("defense");
-    //   let lifeCounters = document.getElementById("lifeCountersBeast");
-    //   name.textContent = beasts[1].name;
-    //   frame.dataset.defense = beasts[1].defense;
-    //   frame.dataset.orangeRatio = beasts[1].orangeRatio;
-    //   frame.dataset.redRatio = beasts[1].redRatio;
-    //   frame.dataset.blueRatio = beasts[1].blueRatio;
-    //   defense.textContent = beasts[1].defense;
-    //   for (i=0; i < beasts[1].life; i++){
-    //     let circle = document.createElement("div");
-    //     let innerCircle = document.createElement("div");
-    //     circle.classList.add("counter");
-    //     innerCircle.classList.add("inner-circle");
-    //     innerCircle.setAttribute("data-wounded", "false");
-    //     circle.appendChild(innerCircle);
-    //     lifeCounters.appendChild(circle);    
-    //   }
-    //   passives[0].textContent = beasts[1].passiveText1;
-    //   passives[1].textContent = beasts[1].passiveText2;
-    //   passives[2].textContent = beasts[1].passiveText3;
-    // //isGameStarted = "true";
-    //   }
-    // }
     
     function clearBeastCard(){
       let passives = document.getElementsByClassName("passive");
@@ -283,35 +253,39 @@
         this.parentNode.classList.add("first");
       }
     }
-    
+
     function getHeroes(){ 
       if (isGameStarted == "false"){
-      let frame = document.getElementById("cardFrameHero");
-      let cardClass = document.getElementById("cardContainer");
-      let name = document.getElementById("nameHero");
-      let abilities = document.getElementsByClassName("ability")
-      let lifeCounters = document.getElementById("lifeCountersHero")
-      //Filling the Card with data
-      frame.dataset.id = heroes[heroDeck[0]].id;
-      cardClass.classList.add(heroes[heroDeck[0]].cardClass);
-      name.textContent = heroes[heroDeck[0]].name;
-      for (i=0; i < heroes[heroDeck[0]].life; i++){
-        let circle = document.createElement("div");
-        let innerCircle = document.createElement("div");
-        circle.classList.add("counter");
-        innerCircle.classList.add("inner-circle");
-        innerCircle.setAttribute("data-wounded", "false");
-        circle.appendChild(innerCircle);
-        lifeCounters.appendChild(circle);   
-      }
-      abilities[0].innerHTML = heroes[heroDeck[0]].abilityText1;
-      abilities[1].innerHTML = heroes[heroDeck[0]].abilityText2;
-      abilities[2].innerHTML = heroes[heroDeck[0]].abilityText3;
-      for (let i = 0; i < abilities.length; i++) {
-        if (abilities[i].textContent === ""){
-            abilities[i].remove();
+        let zone = document.getElementById("hero-zone");
+        let frame = zone.querySelectorAll("#cardFrameHero");
+        for (let i=0; i < frame.length; i++){
+          frame[i].dataset.id = heroes[heroDeck[0]].id;
+          frame[i].querySelector("#cardContainer").classList.add(heroes[heroDeck[0]].cardClass)
+          frame[i].querySelector("#nameHero").textContent = heroes[heroDeck[0]].name;
+          frame[i].querySelector("#imageHero").addEventListener("click", equipItem)
+    
+          let lifeCounters = frame[i].querySelector("#lifeCountersHero");
+          for (let i=0; i < heroes[heroDeck[0]].life; i++){
+            let circle = document.createElement("div");
+            let innerCircle = document.createElement("div");
+            circle.classList.add("counter");
+            innerCircle.classList.add("inner-circle");
+            innerCircle.setAttribute("data-wounded", "false");
+            circle.appendChild(innerCircle);
+            lifeCounters.appendChild(circle);   
+          }
+    
+          let abilities = frame[i].querySelectorAll(".ability")
+          abilities[0].innerHTML = heroes[heroDeck[0]].abilityText1;
+          abilities[1].innerHTML = heroes[heroDeck[0]].abilityText2;
+          abilities[2].innerHTML = heroes[heroDeck[0]].abilityText3;
+          for (let i = 0; i < abilities.length; i++) {
+            if (abilities[i].textContent === ""){
+                abilities[i].remove();
+            }
+          }
+          heroDeck.shift();
         }
-      }
       }
     }
     
@@ -516,6 +490,8 @@
         actionCost = 0;
         actionTarget = "none";
         actionType = "none";
+        itemInUse = "";
+        magicCardInUse = ""
     }
 
     //Magic Cards
@@ -554,6 +530,7 @@
     }
 
     function useCard(){
+      removeGlow();
       if (this.dataset.type == 'magic'){
         useMagic(this)
       }
@@ -568,7 +545,7 @@
     }
 
     function useItem(card){
-      //alert("using " + neutrals[card.dataset.id].name);
+      itemInUse = card.dataset.id;
       actionCost = card.querySelector("#cost").textContent;
       actionType = "item";
       actionTarget = "hero";
@@ -581,6 +558,14 @@
       let heroes = zone.querySelectorAll("#cardFrameHero");
       for(let i=0; i<heroes.length; i++){
         heroes[i].querySelector("#imageHero").classList.add("glow");
+      }
+    }
+
+    function removeGlow(){
+      let zone = document.getElementById("hero-zone");
+      let heroes = zone.querySelectorAll("#cardFrameHero");
+      for(let i=0; i<heroes.length; i++){
+        heroes[i].querySelector("#imageHero").classList.remove("glow");
       }
     }
 
@@ -707,23 +692,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // La idea es que populateDeck() va a llenar los arrays con indexes correlativos
 // Cada uno representando una carta del mazo base.
 // shuffle() va a tomar esos arrays y los va a reorganizar, barajando así el mazo.
@@ -764,3 +732,86 @@ function tempArrayShow(deck, base){
 }
 //
     
+
+//Player Life
+let playerLife = 0;
+let playerCounters = 0;
+
+function getPlayerLife(){
+  if (isGameStarted == "false"){
+    let zone = document.getElementById("hero-zone");
+    let hero = zone.querySelectorAll("#cardFrameHero");
+    let id = 0;
+    for (let i=0; i < hero.length; i++){
+      id = hero[i].dataset.id;
+      playerLife += parseInt(heroes[id].life);
+    }
+  }
+} //Tengo que ir al script que agrega los contadores al jugador y sumar playerCounters desde ahi
+//Tengo que llamar tambien a la funcion que determina si perdiste o no la partida
+
+function isGameOver(){
+  console.log("entering here");
+  console.log("player life is " + playerLife)
+  if(playerCounters >= playerLife){
+    setTimeout(() => {
+      alert("The Game is Over. You've Lost");
+      resetGame();
+    }, "10");
+  }
+}
+
+
+//Item
+
+let itemInUse = ""
+
+// function useItem(card){
+//   itemInUse = card.dataset.id;
+//   actionCost = card.querySelector("#cost").textContent;
+//   actionType = "item"
+//   actionTarget = "hero"
+//   addGlow();
+// }
+
+//Esto es lo que está en imageHero
+function equipItem(){
+  removeGlow();
+  if (actionType == "item" && actionTarget == "hero"){
+    if(totalResources >= actionCost){
+      useResources(actionCost);
+      this.parentNode.parentNode.dataset.item = itemInUse;
+      fillItemCard(this);
+      clearActions(); //No se como se llama, pero lo que limpia los cost, types y eso
+    }
+  }
+}
+
+//Esta funcion es para descontar los recursos del jugador desde ataque hasta habilidad
+function useResources(cardCost) {
+  let cost = cardCost;
+  while (cost > 0){
+    if (redResource > 0){
+      redResource --;
+    } else if (blueResource > 0){
+      blueResource --;
+    } else if (orangeResource > 0){
+      orangeResource--;
+    }
+    cost --;
+  }
+  updateResourcesDivs();
+}
+
+fillItemCard(){
+  //Falta hacer esto
+  //Es para que se vea la carta de abajo con foto y texto
+}
+
+
+
+
+
+
+
+

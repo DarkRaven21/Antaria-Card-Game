@@ -103,6 +103,7 @@ body {
   align-items: center;
   justify-content: center;
   background: var(--card-text-background-color);
+  padding: 0.3em;
 }
 
 .ability {
@@ -114,9 +115,11 @@ body {
 }
 
 #buttonContainer {
+  position: absolute;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  right: 2em;
 }
 
 #buttonContainer button{
@@ -137,11 +140,21 @@ body {
  border-radius: 2px;
 }
 
+/* Data & Logs */
+#data-logs {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr 3fr;
+  gap: 1em;
+  justify-items: center;
+  justify-content: center;
+  height: 292px;
+  padding-inline: 1em;
+}
+
 #resourcesContainer {
-/*  position: absolute;*/
   display: flex;
-  flex-direction: column;
-  right: 10%;
+  justify-content: center;
   gap: 5px;
 }
 
@@ -178,6 +191,41 @@ body {
 #totalResources {
   font-size: 24px;
   font-weight: bold;
+}
+
+/* Combat History */
+
+#combatHistory {
+  border: solid 1px;
+  border-radius: 4px;
+  width: 300px;
+  padding: 4px;
+  font-size: 10px;
+  text-align: center;
+  overflow-y: auto;
+}
+
+#alertMsg[aria-expanded="false"]{
+  display: none;
+}
+
+#alertMsg[aria-expanded="true"]{
+  position: absolute;
+  display: flex;
+  min-width: 200px;
+  min-height: 100px;
+  transition: width 0.5s;
+  z-index: 4;
+  border: solid 1px black;
+  border-radius: 8px;
+  padding: 1em;
+  text-align: center;
+  background: var(--card-text-background-color);
+  top: 120px;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  outline: 4px solid rgba(255, 255, 0, 0.50);
 }
 
 /* Beast */
@@ -296,59 +344,31 @@ body {
   cursor: zoom-in;
 }
 
-
-/* Combat History */
-
-#combatHistory {
-  border: solid 1px;
-  border-radius: 4px;
-  width: 200px;
-  height: 280px;
-  padding: 4px;
-  font-size: 10px;
-  text-align: center;
-  overflow-y: auto;
-}
-
-#alertMsg[aria-expanded="false"]{
-  display: none;
-}
-
-#alertMsg[aria-expanded="true"]{
-  display: flex;
-  min-width: 200px;
-  min-height: 100px;
-  transition: width 0.5s;
-  position: absolute;
-  z-index: 4;
-  border: solid 1px black;
-  border-radius: 8px;
-  padding: 1em;
-  text-align: center;
-  background: var(--card-text-background-color);
-  top: 315px;
-  left: 295px;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
-
 /* Testing This */
+#zones {
+  display: grid;
+  gap: 1em;
+}
+
 #hero-zone{
-  min-width: 225px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1em;
 }
 
 #beast-zone{
   --variable-size: 1rem;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1em;
+  grid-row: 1;
 }
 
 /* Hand Card */
 #hand-zone{
   position: fixed;
-  bottom: 0;
+  bottom: 1em;
+  left: 50%;
 }
 
 .handPlayingCard,
@@ -554,9 +574,8 @@ body {
 }
 
 /* Ver esto */
-#imageHero.glow:is[data-item="2"] {
-  box-shadow: 0 -1px 10px 1px #981e1e;
-  /* cardContainer tiene overflow hidden y por eso la sombra se ve medio feo */
+#imageHero.glow {
+  outline: 4px solid rgb(236 13 13 / 30%)
 }
 
 #cardFrameHero #cardContainer {
