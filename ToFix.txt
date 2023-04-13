@@ -1,0 +1,4 @@
+Monnet no cura si ella tiene vida al maximo
+Curar de Monnet no cura playerLife
+
+Revisar que actionDamage funcione bien

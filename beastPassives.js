@@ -1,14 +1,19 @@
 function predator(){
-let beast = document.getElementById("cardFrameBeast")
-let life = beast.getElementsByClassName("inner-circle")
-for (i=0; i < life.length; i++){
-    if (life[i].dataset.wounded == "true"){
-    break
-    }
+if (this.life >= 3 && this.isAlive == "true"){
     receiveCounter();
-    writeInCombatHistory("Anruk attacks you from the shadows")
-    break
+    writeInCombatHistory("Anruk te ataca desde las sombras");
 }
+//let zone = document.getElementById("beast-zone");
+// let beast = document.getElementById("cardFrameBeast")
+// let life = beast.getElementsByClassName("inner-circle")
+// for (i=0; i < life.length; i++){
+//     if (life[i].dataset.wounded == "true"){
+//     break
+//     }
+//     receiveCounter();
+//     writeInCombatHistory("Anruk attacks you from the shadows")
+//     break
+// }
 }
 
 function tailHit(){
@@ -29,7 +34,10 @@ function debilidadMagica() {
 }
 
 function pinzamiento(){
-    console.log("Doing damage at the end of every turn");
+    if (this.isAlive == "true"){
+        receiveCounter();
+        writeInCombatHistory("Laos arremete contra tus heroes");
+    }
 }
 
 function caparazon(){

@@ -26,13 +26,10 @@ function aHeal() {
 
 
 
-
-
-
-
 function pBerserk(){
     if (playerCounters >= 3){
       redResource++;
+      updateResourcesDivs();
     }
 }
 

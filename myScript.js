@@ -17,6 +17,30 @@
     let endButton = document.getElementById("endButton");
     let resetButton = document.getElementById("resetButton")
     let combatHistory = document.getElementById("combatHistory");
+
+    let passivesButton = document.getElementsByClassName("passive");
+    let isGameStarted = "false"
+    let isBigger = "false";
+
+    let alertMsg = document.getElementById("alertMsg");
+
+    let actionCost = 0;
+    let actionTarget = "none";
+    let actionType = "none";
+    let actionDamage = 2;
+
+    let magicCardInUse = "";
+
+    let beastDeck = [];
+    let heroDeck = [];
+    let handDeck = [];
+
+    let playerLife = 0;
+    let playerCounters = 0;
+
+    let itemInUse = "";
+
+
     
     //Event Listeners
     startButton.addEventListener("click", startGame)
@@ -56,6 +80,7 @@
         checkStartTurnPassives();
         checkStartTurnItems();
         removeGlow();
+        addClickables();
         startButton.disabled = true
         startButton.textContent = "Comenzar turno"
         attackButton.disabled = false
@@ -78,24 +103,15 @@
       //clearResources won't be necesary in the final product
     }
     
-    function resetGame(){
-      if (confirm("¿Está seguro que quiere reiniciar la partida?")){
-        window.location.reload();
-        //Dejo esto comentado para limpieza mas tarde
-        // endTurn();
-        // clearBeastCard();
-        // clearHeroCard();
-        // clearHandCard();
-        // attackButton.disabled = true;
-        // endButton.disabled = true;
-        // isGameStarted = "false";
-        // startButton.textContent = "Comenzar juego";
-        // combatHistory.textContent = ""
-        // let lifeInner = document.getElementsByClassName("inner-circle");
-        // for (i=0; i<lifeInner.length; i++){
-        //   lifeInner[i].dataset.wounded = "false"
-        //   lifeInner[i].style.backgroundColor = "white"
-        // }
+    function addClickables() {
+      for (i=0; i < passivesButton.length; i++){
+        passivesButton[i].addEventListener("click", makeBigger)
+      }
+
+      let showItemBtn = document.querySelectorAll("#item-btn")
+
+      for (let i=0; i < showItemBtn.length; i++){
+        showItemBtn[i].addEventListener("click", showItemCard)
       }
     }
     
@@ -191,7 +207,6 @@
           life[i].setAttribute("data-wounded", "true");
           life[i].style.backgroundColor = "red";
           playerCounters++;
-          console.log(playerCounters);
           isGameOver();
           break
         }
@@ -203,10 +218,6 @@
     }
     
     //Making Beast Card
-    
-    let passivesButton = document.getElementsByClassName("passive");
-    let isGameStarted = "false"
-    let isBigger = "false";
     
     function clearBeastCard(){
       let passives = document.getElementsByClassName("passive");
@@ -223,10 +234,6 @@
       }
     }
     
-    for (i=0; i < passivesButton.length; i++){
-      passivesButton[i].addEventListener("click", makeBigger)
-    }
-    
     function makeBigger(){
       //let frame = document.getElementById("cardFrameBeast");
       let frame = this.parentNode.parentNode.parentNode;
@@ -239,11 +246,6 @@
         frame.classList.remove("zoom");
         isBigger = "false";
       }
-    }
-
-    let showItemBtn = document.querySelectorAll("#item-btn")
-    for (let i=0; i < showItemBtn.length; i++){
-      showItemBtn[i].addEventListener("click", showItemCard)
     }
 
     function showItemCard(){
@@ -310,8 +312,8 @@
     
     //Getting Abilities
     function getAbilities(){
-      let heroAbilities = document.getElementById("abilityContainerHero");
-      let heroAbility = heroAbilities.getElementsByClassName("ability");
+      let heroAbilities = document.querySelector("#hero-zone");
+      let heroAbility = heroAbilities.querySelectorAll(".ability");
       addClickEvent(heroAbility, useAbility);
     }
     
@@ -322,7 +324,7 @@
     }
     
     //Small recap to add some alert msg
-    let alertMsg = document.getElementById("alertMsg");
+
     
     function hideMsg(){
       alertMsg.setAttribute("aria-expanded", false);
@@ -334,13 +336,6 @@
       alertMsg.focus();
       alertMsg.addEventListener("focusout", hideMsg);
     }
-    
-    //Abilities
-    
-    //Making the necesary variables
-    let actionCost = 0;
-    let actionTarget = "none";
-    let actionType = "none";
 
     function doDamage(recievedCost, receivedTarget, receivedType){
       if (receivedType == "ability"){
@@ -348,7 +343,7 @@
           actionCost = recievedCost;
           actionTarget = receivedTarget;
           actionType = receivedType;
-          showMsg(`Pick a ${receivedTarget} card`);
+          showMsg(`Elige una ${receivedTarget} card`);
           return 
         } 
         else {
@@ -360,7 +355,7 @@
           actionCost = recievedCost;
           actionTarget = receivedTarget;
           actionType = receivedType;
-          showMsg(`Pick a ${receivedTarget} card`);
+          showMsg(`Elige una ${receivedTarget} card`);
           return 
         } 
         else {
@@ -371,7 +366,7 @@
           actionCost = recievedCost;
           actionTarget = receivedTarget;
           actionType = receivedType;
-          showMsg(`Pick a ${receivedTarget} card`);
+          showMsg(`Elige una ${receivedTarget} card`);
           return 
       }
     }
@@ -464,19 +459,22 @@
       let id = beast.dataset.id;
       let life = beast.getElementsByClassName("inner-circle")
       let name = beast.querySelector("#nameBeast").textContent
-      for (i=0; i < life.length; i++){
-        if (life[i].dataset.wounded == "false"){
-          life[i].setAttribute("data-wounded", "true");
-          life[i].style.backgroundColor = "red";
-          beasts[id].life--;
-          if (beasts[id].life <= 0){
-            writeInCombatHistory("You've slained " + name)
-            showMsg("This Beast is DEAD")
-            beasts[id].isAlive = "false";
-            break
+      while (actionDamage > 0){
+        for (i=0; i < life.length; i++){
+          if (life[i].dataset.wounded == "false"){
+            life[i].setAttribute("data-wounded", "true");
+            life[i].style.backgroundColor = "red";
+            beasts[id].life--;
+            actionDamage--;
+            if (beasts[id].life <= 0){
+              writeInCombatHistory("You've slained " + name)
+              showMsg("This Beast is DEAD")
+              beasts[id].isAlive = "false";
+              break
+            }
+            writeInCombatHistory("Has herido a " + name);
+            break;
           }
-          writeInCombatHistory("Has herido a " + name);
-          break;
         }
       }
     }
@@ -490,13 +488,10 @@
         actionCost = 0;
         actionTarget = "none";
         actionType = "none";
-        itemInUse = "";
-        magicCardInUse = ""
+        actionDamage = 1;
     }
 
     //Magic Cards
-
-    let magicCardInUse = "";
 
     function getHandCards(){
       let handCards = document.querySelectorAll(".handPlayingCard");
@@ -542,15 +537,6 @@
     function useMagic(card){
       neutrals[card.dataset.id].conditionalPassive1();
       magicCardInUse = card;
-    }
-
-    function useItem(card){
-      itemInUse = card.dataset.id;
-      actionCost = card.querySelector("#cost").textContent;
-      actionType = "item";
-      actionTarget = "hero";
-      showMsg("Elige un heroe");
-      addGlow();
     }
 
     function addGlow(){
@@ -614,6 +600,12 @@
     }
     
     function checkStartTurnPassives(){
+      checkBeastSTPassives();
+      checkHeroSTPassives();
+    }
+
+    // New
+    function checkBeastSTPassives(){
       let zone = document.getElementById("beast-zone");
       let activeBeast = zone.querySelectorAll("#cardFrameBeast");
       for (let i=0; i<activeBeast.length; i++){
@@ -625,6 +617,20 @@
         }   
       }
     }
+
+    function checkHeroSTPassives(){
+      let zone = document.getElementById("hero-zone");
+      let activeHero = zone.querySelectorAll("#cardFrameHero");
+      for (let i=0; i<activeHero.length; i++){
+        if (heroes[activeHero[i].dataset.id].startTurnPassive1 != ""){
+          heroes[activeHero[i].dataset.id].startTurnPassive1();
+          if (heroes[activeHero[i].dataset.id].startTurnPassive2 != "") {
+            heroes[activeHero[i].dataset.id].startTurnPassive2();
+          }
+        }   
+      }
+    }
+    // New
     
     function checkConditionalPassives(){
       let zone = document.getElementById("beast-zone");
@@ -681,16 +687,14 @@
     function useAbility(){
       let thisAbility = this.id;
       let cardId = this.parentNode.parentNode.parentNode.dataset.id;
-      if (thisAbility == "ability1"){
+      if (thisAbility == "ability1" && heroes[cardId].ability1 != ""){
         heroes[cardId].ability1()
-      } else if (thisAbility == "ability2"){
+      } else if (thisAbility == "ability2" && heroes[cardId].ability2 != ""){
         heroes[cardId].ability2()
-      } else if (thisAbility == "ability3") {
+      } else if (thisAbility == "ability3" && heroes[cardId].ability3 != "") {
         heroes[cardId].ability3();
       }
     }
-
-
 
 // La idea es que populateDeck() va a llenar los arrays con indexes correlativos
 // Cada uno representando una carta del mazo base.
@@ -699,12 +703,6 @@
 // la carta que tomaremos del mazo en primer lugar.
 // array[0] = 5. entonces llamamos a beasts[5];
 // tempArrayShow nos da una idea de como funcionaría el sistema;
-
-
-let beastDeck = [];
-let heroDeck = [];
-let handDeck = [];
-var nameArray = ["Pablo","Carlos","Sofia","Romina","Laura","Ana","Sara","Paul","Omar","Joaco"];
 
 function populateDeck(deck, base){
   for (let i=0; i < base.length; i++){
@@ -734,8 +732,7 @@ function tempArrayShow(deck, base){
     
 
 //Player Life
-let playerLife = 0;
-let playerCounters = 0;
+
 
 function getPlayerLife(){
   if (isGameStarted == "false"){
@@ -751,8 +748,6 @@ function getPlayerLife(){
 //Tengo que llamar tambien a la funcion que determina si perdiste o no la partida
 
 function isGameOver(){
-  console.log("entering here");
-  console.log("player life is " + playerLife)
   if(playerCounters >= playerLife){
     setTimeout(() => {
       alert("The Game is Over. You've Lost");
@@ -764,7 +759,14 @@ function isGameOver(){
 
 //Item
 
-let itemInUse = ""
+function useItem(card){
+  itemInUse = card.dataset.id;
+  actionCost = card.querySelector("#cost").textContent;
+  actionType = "item";
+  actionTarget = "hero";
+  showMsg("Elige un heroe");
+  addGlow();
+}
 
 // function useItem(card){
 //   itemInUse = card.dataset.id;
@@ -780,8 +782,9 @@ function equipItem(){
   if (actionType == "item" && actionTarget == "hero"){
     if(totalResources >= actionCost){
       useResources(actionCost);
+      let fullCard = this.parentNode.parentNode.parentNode;
       this.parentNode.parentNode.dataset.item = itemInUse;
-      fillItemCard(this);
+      fillItemCard(fullCard);
       clearActions(); //No se como se llama, pero lo que limpia los cost, types y eso
     }
   }
@@ -803,11 +806,33 @@ function useResources(cardCost) {
   updateResourcesDivs();
 }
 
-fillItemCard(){
-  //Falta hacer esto
-  //Es para que se vea la carta de abajo con foto y texto
+function fillItemCard(card){
+  let itemCard = card.querySelector(".item-equipped");
+  let id = itemInUse;
+  //itemCard.querySelector(".item-equipped-image") = neutrals[id].image;
+  itemCard.querySelector("#nameHand").textContent = neutrals[id].name;
+  itemCard.querySelector("#cost").textContent = neutrals[id].cost;
+  itemCard.querySelector(".handPassive").textContent = neutrals[id].passiveText1;
+  itemCard.classList.add("show");
+
+  discardItem();
+  itemInUse = "";
 }
 
+function discardItem(){
+  let zone = document.getElementById("hand-zone");
+  let card = zone.querySelectorAll("#handCardFrame");
+  for (let i=0; i<card.length; i++){
+    console.log(card[i].dataset.id);
+    if(card[i].dataset.id == itemInUse){
+      card[i].style.display = "none";
+      break
+    }
+  }
+  itemInUse = "";
+}
+
+// Las habilidades no funcionan en la segunda carta. Reparar
 
 
 
@@ -815,3 +840,34 @@ fillItemCard(){
 
 
 
+
+
+
+
+
+
+
+
+
+
+   //Ya no se usa
+   function resetGame(){
+    if (confirm("¿Está seguro que quiere reiniciar la partida?")){
+      window.location.reload();
+      //Dejo esto comentado para limpieza mas tarde
+      // endTurn();
+      // clearBeastCard();
+      // clearHeroCard();
+      // clearHandCard();
+      // attackButton.disabled = true;
+      // endButton.disabled = true;
+      // isGameStarted = "false";
+      // startButton.textContent = "Comenzar juego";
+      // combatHistory.textContent = ""
+      // let lifeInner = document.getElementsByClassName("inner-circle");
+      // for (i=0; i<lifeInner.length; i++){
+      //   lifeInner[i].dataset.wounded = "false"
+      //   lifeInner[i].style.backgroundColor = "white"
+      // }
+    }
+  }
