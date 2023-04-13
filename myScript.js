@@ -91,14 +91,14 @@
     }
     
     function endTurn(){
-      clearResources();
-      updateResourcesDivs();
       removeAttack();
       removeGlow();
       startButton.disabled = false
       attackButton.disabled = true
       endButton.disabled = true
       checkEndTurnPassives();
+      clearResources();
+      updateResourcesDivs();
       isInitialFase = "false"
       //clearResources won't be necesary in the final product
     }
@@ -186,16 +186,35 @@
       isAttacking = "false"
     };
     
-    function removeRed(cardName){
-      let thisCard = document.getElementsByClassName(cardName);
-      let life = thisCard[0].getElementsByClassName("inner-circle");
+    function removeRed(){
+      let zone = document.getElementById("hero-zone");
+      let life = zone.querySelectorAll(".inner-circle")
+    
       for (i=life.length-1; i >= 0; i--){
         if (life[i].dataset.wounded == "true"){
           life[i].setAttribute("data-wounded", "false");
           life[i].style.backgroundColor = "white";
+          playerCounters--;
           return true;
         }
-       }
+      }
+    }
+
+    function removeRedFromBeast(damage, id){
+      let howMuch = damage;
+      let zone = document.getElementById("beast-zone")
+      let beastCard = zone.querySelector(`[data-id='${id}']`);
+      let life = beastCard.querySelectorAll(".inner-circle");
+      
+      for (let j=0; j<howMuch; j++){
+        for (let i=life.length-1; i >= 0; i--){
+          if (life[i].dataset.wounded == "true"){
+            life[i].setAttribute("data-wounded", "false");
+            life[i].style.backgroundColor = "white";
+            break;
+          }
+        }
+      }
     }
     
     function receiveCounter(){

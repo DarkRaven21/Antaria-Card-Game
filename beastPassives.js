@@ -50,3 +50,53 @@ function caparazon(){
         updateCard(this.id);
     };
 }
+
+function opportunist() {
+    if (blueResource > 0){
+      receiveCounter();
+      writeInCombatHistory("Jayce huele magia en el aire y te ataca con sus poderosas garras");
+    };
+  }
+  
+  function antiMagicSkin() {
+    return;
+  }
+  
+  function corneredBeast() {
+    let zone = document.getElementById("beast-zone");
+    let beastCards = zone.querySelectorAll("#cardFrameBeast");
+    let aliveBeasts = 0;
+    for (i=0; i<beastCards.length; i++){
+      let id = beastCards[i].dataset.id
+      if (beasts[id].isAlive == "true"){
+        aliveBeasts++;
+      }
+    }
+    if (aliveBeasts == 1){
+      this.defense = 4;
+      updateCard(this.id);
+    }
+  }
+
+  function trance() {
+    if (this.life < 2){
+        writeInCombatHistory("Nik'Tali'Ha se ha recuperado de todas sus heridas");
+    }
+    this.life = 2;
+    removeRedFromBeast(2, this.id);
+  }
+  
+  function keenEye() {
+    if (resources >= 2){
+        for (let i=0; i<resources; i+=2){
+            receiveCounter();
+        }
+    writeInCombatHistory("Nik'Tali'Ha aprovecha tu debilidad y te ataca con sus poderosas pinzas");
+    }
+    return
+  }
+  
+  function agility() {
+    return
+  }
+  

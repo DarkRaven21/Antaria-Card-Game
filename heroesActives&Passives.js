@@ -6,14 +6,14 @@ function aHurt(){
 
 function aHeal() {
     if(orangeResource >= 2){
-    if (removeRed("monnet") === true){
-        writeInCombatHistory("Usas tus habilidades para sanar tus heridas")
-        orangeResource -= 2;
-        updateResourcesDivs();
-    } 
-    else {
-        showMsg("Tu vida está a máximo");
-    }
+      if (removeRed() === true){
+          writeInCombatHistory("Usas tus habilidades para sanar tus heridas")
+          orangeResource -= 2;
+          updateResourcesDivs();
+      } 
+      else {
+          showMsg("Tu vida está al máximo");
+      }
     }
     else {
     showMsg("No tienes los recursos suficientes");

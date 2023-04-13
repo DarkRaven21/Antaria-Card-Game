@@ -62,4 +62,48 @@ let laos = {
   redRatio:0, 
   blueRatio:-1
 }
-beasts.push(laos)
+beasts.push(laos);
+
+let jayce = {
+  id: 2,
+  name:"Jayce", 
+  life:"3", 
+  defense:"3", 
+  isAlive: "true",
+  withEffect:"false", 
+  startTurnPassive1: "",
+  startTurnPassive2:corneredBeast, 
+  endTurnPassive1: opportunist, 
+  endTurnPassive2:"", 
+  conditionalPassive1: antiMagicSkin,
+  conditionalPassive2:"",
+  passiveText1: "Si el jugador no tiene un recurso azul al final del turno. Aplica 1 contador",
+  passiveText2: "Los hechizos lanzados contra ésta carta cuestan 1 recurso más",
+  passiveText3: "Si es la unica Bestia con vida, gana 1 más de Defensa",
+  orangeRatio:0, 
+  redRatio:0, 
+  blueRatio:1
+}
+beasts.push(jayce);
+
+let nikTaliHa = {
+  id: 3,
+  name:"Nik'Tali'Ha", 
+  life:"2", 
+  defense:"4", 
+  isAlive: "true",
+  withEffect:"false", 
+  startTurnPassive1: trance,
+  startTurnPassive2:"", 
+  endTurnPassive1: keenEye, 
+  endTurnPassive2:"", 
+  conditionalPassive1: agility,
+  conditionalPassive2: "",
+  passiveText1: "Recupera toda la vida al principio del turno",
+  passiveText2: "Aplica 1 contador al jugador por cada dos recursos que no se hayan utilizado",
+  passiveText3: "Las habilidades utilizadas contra esta carta cuestan 2 recursos más",
+  orangeRatio:2, 
+  redRatio:0, 
+  blueRatio:0
+}
+beasts.push(nikTaliHa);
