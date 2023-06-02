@@ -61,7 +61,9 @@ function opportunist() {
   function antiMagicSkin() {
     return;
   }
-  
+
+
+  //Check to see why if it's better in conditional passives
   function corneredBeast() {
     let zone = document.getElementById("beast-zone");
     let beastCards = zone.querySelectorAll("#cardFrameBeast");

@@ -36,6 +36,7 @@ let anruk = {
   passiveText1: "Te hace perder un recurso de tipo rojo durante la fase inicial",
   passiveText2: "Si ésta carta no tiene contadores al final del turno, aplica un contador al jugador",
   passiveText3: "Si al jugador le sobran contadores rojos despues de realizar un ataque, aplica 1 contador al jugador.",
+  img: "img/anruk.png",
   orangeRatio:0, 
   redRatio:0, 
   blueRatio:0
@@ -58,6 +59,7 @@ let laos = {
   passiveText1: "Al final del turno aplica un contador al jugador",
   passiveText2: "+1 de Defensa por cada contador en esta carta",
   passiveText3: "Los hechizos lanzados contra ésta carta cuestan uno menos",
+  img: "img/laos.png",
   orangeRatio:0, 
   redRatio:0, 
   blueRatio:-1
@@ -71,8 +73,8 @@ let jayce = {
   defense:"3", 
   isAlive: "true",
   withEffect:"false", 
-  startTurnPassive1: "",
-  startTurnPassive2:corneredBeast, 
+  startTurnPassive1: corneredBeast,
+  startTurnPassive2: "", 
   endTurnPassive1: opportunist, 
   endTurnPassive2:"", 
   conditionalPassive1: antiMagicSkin,
@@ -80,6 +82,7 @@ let jayce = {
   passiveText1: "Si el jugador no tiene un recurso azul al final del turno. Aplica 1 contador",
   passiveText2: "Los hechizos lanzados contra ésta carta cuestan 1 recurso más",
   passiveText3: "Si es la unica Bestia con vida, gana 1 más de Defensa",
+  img: "img/jayce.png",
   orangeRatio:0, 
   redRatio:0, 
   blueRatio:1
@@ -102,6 +105,7 @@ let nikTaliHa = {
   passiveText1: "Recupera toda la vida al principio del turno",
   passiveText2: "Aplica 1 contador al jugador por cada dos recursos que no se hayan utilizado",
   passiveText3: "Las habilidades utilizadas contra esta carta cuestan 2 recursos más",
+  img: "img/nikTaliHa.png",
   orangeRatio:2, 
   redRatio:0, 
   blueRatio:0

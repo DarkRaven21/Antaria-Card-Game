@@ -283,6 +283,7 @@
           frame[i].dataset.id = heroes[heroDeck[0]].id;
           frame[i].querySelector("#cardContainer").classList.add(heroes[heroDeck[0]].cardClass)
           frame[i].querySelector("#nameHero").textContent = heroes[heroDeck[0]].name;
+          frame[i].querySelector("#imageHero").src = heroes[heroDeck[0]].img;
           frame[i].querySelector("#imageHero").addEventListener("click", equipItem)
     
           let lifeCounters = frame[i].querySelector("#lifeCountersHero");
@@ -682,6 +683,7 @@
       frame.dataset.orangeRatio = beasts[beastDeck[0]].orangeRatio;
       frame.querySelector("#nameBeast").textContent = beasts[beastDeck[0]].name;
       frame.querySelector("#defense").textContent = beasts[beastDeck[0]].defense;
+      frame.querySelector("#imageBeast").src = beasts[beastDeck[0]].img;
       let passives = frame.getElementsByClassName("passive");
       passives[0].textContent = beasts[beastDeck[0]].passiveText1;
       passives[1].textContent = beasts[beastDeck[0]].passiveText2;
