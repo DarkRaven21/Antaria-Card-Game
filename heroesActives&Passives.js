@@ -7,7 +7,7 @@ function aHurt(){
 function aHeal() {
     if(orangeResource >= 2){
       if (removeRed() === true){
-          writeInCombatHistory("Usas tus habilidades para sanar tus heridas")
+          writeInCombatHistory("Usas tus habilidades para sanar tus heridas", "orange")
           orangeResource -= 2;
           updateResourcesDivs();
       } 

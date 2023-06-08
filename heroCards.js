@@ -23,7 +23,7 @@ let monnet = {
     cardClass: "monnet",
     name:"Monnet", 
     life:"4", 
-    img: "img/monnet.png",
+    img: "img/Heroes/Monnet.png",
     startTurnPassive1:"", 
     startTurnPassive2:"", 
     endTurnPassive1:"", 
@@ -44,7 +44,7 @@ let thuldir = {
     cardClass: "thuldir",
     name:"Thuldir", 
     life:"4", 
-    img: "img/thuldir.png",
+    img: "img/Heroes/Thuldir.png",
     startTurnPassive1: pBerserk, 
     startTurnPassive2:"", 
     endTurnPassive1:"", 
@@ -59,3 +59,63 @@ let thuldir = {
     abilityText3: "" 
 }
 heroes.push(thuldir);
+
+let yvonne = {
+    id: 2,
+    cardClass: "yvonne",
+    name:"Yvonne", 
+    life:"3", 
+    startTurnPassive1:pMasterSwordsman, 
+    startTurnPassive2:"", 
+    endTurnPassive1:"", 
+    endTurnPassive2:"", 
+    conditionalPassive1:"",
+    conditionalPassive2:"",
+    ability1: aHurt,
+    ability2: "",
+    ability3: "",
+    abilityText1: "<span><strong>Golpe certero (3)</strong><br>Aplica un contador a la Bestia seleccionada</span>",
+    abilityText2: "<span><strong>Maestra de la Espada</strong><br>Ganas 1 recurso rojo extra al principio del turno si tienes una espada equipada</span>",
+    abilityText3: "" 
+}
+heroes.push(yvonne);
+
+let moboa = {
+    id: 3,
+    cardClass: "moboa",
+    name:"Moboa", 
+    life:"3", 
+    startTurnPassive1:pMasterMagi, 
+    startTurnPassive2:"", 
+    endTurnPassive1:"", 
+    endTurnPassive2:"", 
+    conditionalPassive1:"",
+    conditionalPassive2:"",
+    ability1: "",
+    ability2: "",
+    ability3: "",
+    abilityText1: "<span><strong>Magi experimentado</strong><br>Ganas 1 recurso azul extra al principio de cada turno</span>",
+    abilityText2: "",
+    abilityText3: "" 
+}
+heroes.push(moboa);
+
+let fenrir = {
+    id: 4,
+    cardClass: "fenrir",
+    name:"Fenrir", 
+    life:"3", 
+    startTurnPassive1:"", 
+    startTurnPassive2:"", 
+    endTurnPassive1:"", 
+    endTurnPassive2:"", 
+    conditionalPassive1:pChainHeal,
+    conditionalPassive2:"",
+    ability1: aStrongHeal,
+    ability2: "",
+    ability3: "",
+    abilityText1: "<span><strong>Curar (3)</strong><br>Quita 1 contador de tu persona</span>",
+    abilityText2: "<span><strong>Curación en cadena</strong><br>Quita un contador extra de tu persona si te has curado este turno</span>",
+    abilityText3: "" 
+}
+heroes.push(fenrir);

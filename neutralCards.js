@@ -4,10 +4,12 @@ const neutrals = [
         name:"", 
         cost:"",
         type:"",
+        img:"",
         conditionalPassive1:"",
-        conditionalPassive2:"",
+        cardEffectOnSucces:"",
         passiveText1: "",
         passiveText2: "",
+        cardTextOnSucces:""
     }
 ]
 
@@ -16,10 +18,12 @@ let fireball = {
     name: "Fireball",
     cost: "3",
     type: "magic",
+    img: 'img/Neutrals/Fire_Bomb.png',
     conditionalPassive1: useFireball,
-    conditionalPassive2: "",
+    cardEffectOnSucces: doNothing,
     passiveText1: "Una rápida bola de fuego que aplica 1 contador al enemigo seleccionado",
-    passiveText2: ""
+    passiveText2: "",
+    cardTextOnSucces:"Una rápida y poderosa bola de fuego sale disparada hacia tu objetivo"
 }
 neutrals.push(fireball);
 
@@ -28,10 +32,12 @@ let sharpen = {
     name: "Sharpen",
     cost: "2",
     type: "magic",
+    img: 'img/Neutrals/Sharpen.png',
     conditionalPassive1: function sharpen(){alert('sharpen used')},
-    conditionalPassive2: "",
-    passiveText1: "Otorgas a tu arma un filo devastador. Ganas 1 recurso de ataque extra en cada ronda",
-    passiveText2: ""
+    cardEffectOnSucces: "",
+    passiveText1: "Otorgas a tu arma un filo devastador. Ganas 1 recurso de ataque extra por cada item equipado",
+    passiveText2: "",
+    cardTextOnSucces:""
 }
 neutrals.push(sharpen);
 
@@ -40,22 +46,29 @@ let healingBolt = {
     name: "Healing Bolt",
     cost: "2",
     type: "magic",
-    conditionalPassive1: function healingBolt(){alert('Healing Bolt used')},
-    conditionalPassive2: "",
+    img: 'img/Neutrals/Healing_Bolt.png',
+    conditionalPassive1: useHealingBolt,
+    cardEffectOnSucces: "",
     passiveText1: "Un golpe de magia curativa que sana las heridas y quita un contador",
-    passiveText2: ""
+    passiveText2: "",
+    cardTextOnSucces:""
 }
 neutrals.push(healingBolt); 
 
 let overwhelm = {
     id: 4,
     name: "Overwhelm",
-    cost: "3",
+    cost: "4",
     type: "magic",
-    conditionalPassive1: function overwhelm(){alert('overwhelm used')},
-    conditionalPassive2: "",
+    img: 'img/Neutrals/Overwhelm.png',
+    conditionalPassive1: useOverWhelm,
+    cardEffectOnSucces: function(){
+        sufferRetailation(1);
+        writeInCombatHistory('La fuerza del golpe también te hace daño', 'blue')
+    },
     passiveText1: "Un poderoso golpe que aplica dos contadores al objetivo pero que tambien aplica un contador al usuario",
-    passiveText2: ""
+    passiveText2: "",
+    cardTextOnSucces:""
 }
 neutrals.push(overwhelm);
 
@@ -64,6 +77,7 @@ let sword = {
     name:"Sword", 
     cost:"3", 
     type: "item",
+    img: 'img/Neutrals/Sword.jpg',
     startTurnItem1: sharpEdge,
     startTurnItem2:"", 
     endTurnItem1: "", 
@@ -71,7 +85,8 @@ let sword = {
     conditionalItem1: "",
     conditionalItem2:"",
     passiveText1: "Agrega 1 recurso rojo al principio de cada turno",
-    passiveText2: ""
+    passiveText2: "",
+    cardTextOnSucces:""
 };
 neutrals.push(sword);
 

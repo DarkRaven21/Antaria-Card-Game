@@ -204,6 +204,8 @@ body {
 /* Combat History */
 
 #combatHistory {
+  /* display: flex;
+  flex-direction: column-reverse; */
   border: solid 1px;
   border-radius: 4px;
   width: 300px;
@@ -212,7 +214,38 @@ body {
   line-height: 1.8;
   text-align: center;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
   background-color: var(--card-text-background-color);
+}
+
+#combatHistory div:last-child {
+  scroll-snap-align: start;
+}
+
+#combatHistory div:nth-child(even){
+  background-color: #d3d3d380;
+  margin-bottom: 3px;
+}
+
+#combatHistory div:nth-child(odd){
+  /* background-color: #d3d3d380; */
+  margin-bottom: 3px;
+}
+
+#combatHistory .blue {
+  color: blue;
+  font-weight: bold;
+}
+
+#combatHistory .red {
+  color: red;
+  font-weight: bold;
+}
+
+#combatHistory .orange {
+  color: orange;
+  font-weight: bold;
 }
 
 #alertMsg[aria-expanded="false"]{

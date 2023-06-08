@@ -29,7 +29,7 @@
     let actionType = "none";
     let actionDamage = 2;
 
-    let magicCardInUse = "";
+    var magicCardInUse = "";
 
     let beastDeck = [];
     let heroDeck = [];
@@ -232,8 +232,13 @@
       }
     }
     
-    function writeInCombatHistory(log){
-      combatHistory.innerHTML += log + "<br />";
+    function writeInCombatHistory(log, color){
+      let div = document.createElement('div');
+      div.textContent = "- "+log;
+      if (color != undefined){
+        div.classList.add(color);
+      }
+      combatHistory.appendChild(div);
     }
     
     //Making Beast Card
@@ -357,7 +362,13 @@
       alertMsg.addEventListener("focusout", hideMsg);
     }
 
-    function doDamage(recievedCost, receivedTarget, receivedType){
+    function doDamage(recievedCost, receivedTarget, receivedType, howMuchDamage){
+      if (howMuchDamage == undefined){
+        actionDamage = 1;
+      } else {
+        actionDamage = howMuchDamage;
+      }
+
       if (receivedType == "ability"){
         if (orangeResource >= recievedCost){
           actionCost = recievedCost;
@@ -454,9 +465,11 @@
     function performMagic(x){
       if (x.dataset.type == "beast" && actionTarget == "beast") {
         if (blueResource >= (actionCost + parseInt(x.dataset.blueRatio))){ 
+          checkMagicCardText(magicCardInUse);
           paintRedNew(x);
           blueResource -= (actionCost +  parseInt(x.dataset.blueRatio));
           checkConditionalPassives();
+          checkMagicCardEffect(magicCardInUse);
           clearActions();
           updateResourcesDivs();
           removeHandCard(magicCardInUse);
@@ -480,19 +493,19 @@
       let life = beast.getElementsByClassName("inner-circle")
       let name = beast.querySelector("#nameBeast").textContent
       while (actionDamage > 0){
-        for (i=0; i < life.length; i++){
+        for (let i=0; i < life.length; i++){
           if (life[i].dataset.wounded == "false"){
             life[i].setAttribute("data-wounded", "true");
             life[i].style.backgroundColor = "red";
             beasts[id].life--;
             actionDamage--;
             if (beasts[id].life <= 0){
-              writeInCombatHistory("You've slained " + name)
-              showMsg("This Beast is DEAD")
+              writeInCombatHistory("Has eliminado a " + name, 'red')
+              showMsg("Esta Bestia ha muerto")
               beasts[id].isAlive = "false";
               break
             }
-            writeInCombatHistory("Has herido a " + name);
+            writeInCombatHistory("Has herido a " + name, "red");
             break;
           }
         }
@@ -517,7 +530,7 @@
       let handCards = document.querySelectorAll(".handPlayingCard");
 
       for (i=0; i<handCards.length; i++){
-        completeCard(handCards[i]);
+        completeNeutralCard(handCards[i]);
         addClickToHandCard(handCards[i]);
         showHandCard(handCards[i]);
       }
@@ -529,18 +542,20 @@
       }
     }
 
-    function completeCard(card){
+    function completeNeutralCard(card){
       let cardId = getRandomNumber(1, (neutrals.length - 1)); //Esto me busca en el mazo de cartas la carta elegida
       //let img = card.querySelector(".imageHand"); not working right now
       //Lo de arriba lo voy a tener que cambiar cuando tenga el mazo terminado
       let name = card.querySelector("#nameHand");
       let cost = card.querySelector("#cost");
       let passiveText = card.querySelector(".handPassive");
+      let img = card.querySelector('#imageHand');
 
       card.dataset.id = cardId;
       card.dataset.type = neutrals[cardId].type;
       name.textContent = neutrals[cardId].name;
       cost.textContent = neutrals[cardId].cost;
+      img.src = neutrals[cardId].img;
       passiveText.textContent = neutrals[cardId].passiveText1;
     }
 
@@ -555,8 +570,8 @@
     }
 
     function useMagic(card){
-      neutrals[card.dataset.id].conditionalPassive1();
       magicCardInUse = card;
+      neutrals[card.dataset.id].conditionalPassive1();
     }
 
     function addGlow(){
@@ -663,6 +678,15 @@
           }
         }   
       }
+    }
+
+    function checkMagicCardEffect(card){
+      neutrals[card.dataset.id].cardEffectOnSucces();
+    }
+
+    function checkMagicCardText(card){
+      let text = neutrals[card.dataset.id].cardTextOnSucces;
+      writeInCombatHistory(text, 'blue');
     }
     
     function loopBeastZone(){
