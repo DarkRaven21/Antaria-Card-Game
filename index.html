@@ -33,7 +33,8 @@
                 </div>
                 <div id="" class="item-equipped">
                     <div id="item-equipped-container">
-                        <div class="item-equipped-image"></div>
+                        <!-- <div class="item-equipped-image"></div> -->
+                        <img class="item-equipped-image" src>
                         <div id="nameContainerHand">
                             <div id="nameHand"></div>
                             <div id="cost"></div>
@@ -61,7 +62,7 @@
                 </div>
                 <div id="" class="item-equipped">
                     <div id="item-equipped-container">
-                        <div class="item-equipped-image"></div>
+                        <img class="item-equipped-image" src>
                         <div id="nameContainerHand">
                             <div id="nameHand"></div>
                             <div id="cost"></div>
@@ -153,6 +154,7 @@
             <div id="redResource"></div>
             <div id="blueResource"></div>
             <div id="orangeResource"></div>
+            <div id="help">?</div>
         </div>
         <div id="combatHistory"></div>
         <div id="alertMsg" aria-expanded="false" tabindex="-1"></div>
@@ -200,6 +202,28 @@
         </div>
     </div>
 
+    <div id="popup" class="hidden parent-popup">
+        <div class="inside-popup">
+            <ul class="tutorial">
+                <li>El objetivo del juego es eliminar a todas las bestias, antes de que ellas te eliminen a ti</li>
+                <li>Las bestias serán escogidas al azar al principio de cada partida y cada una de ellas contará con tres habilidades pasivas</li>
+                <li>Deberás leerlas detenidamente, porque esas habilidades cambiarán el desarrollo del juego</li>
+                <li>Para lograrlo contarás con la ayuda de tus heroes. Que también serán escogidos al azar al principio de cada partida</li>
+                <li>Cada heroe contará con habilidades, tanto pasivas como activas</li>
+                <li>Asimismo podras equiparlos con items o utilizar todo tipo de magias para brindarles mayor poder o dañar a las bestias directamente</li>
+                <li>Todos los turnos obtendras 5 recursos al azar (Esquina superior derecha)</li>
+                <li>Los recursos pueden ser rojos (Ataque), azules (Magia) o naranjas (Habilidad)</li>
+                <li>Cada habilidad, magia o ataque tendrá un costo que deberás pagar en recursos antes de poder ejecutarlo</li>
+                <li>Las habilidades tienen el costo explicitado en la carta. Las magias también.</li>
+                <li>El costo de los ataques en cambio, estará explicitado en las carta de Bestia y se verá reflejado como su Defensa</li>
+                <li>Si una Bestia tiene 3 de Defensa, deberás pagar 3 recursos rojos para realizar un ataque contra ella.</li>
+                <li>Para atacar deberás usar el boton de "Atacar" en la esquina superior derecha de la pantalla</li>
+                <li>Ten en cuenta que este valor de Defensa no aplica para magias ni para habilidades</li>
+                <li>Tanto las Bestias como tus heroes cuentan con contadores de vida. Para eliminar una bestia debes poner en rojo todos sus contadores de vida</li>
+                <li>En cambio, si bien tus heroes no mueren al quedar todos sus contadores en rojo, perderas la partida si los contadores de todos los heroes quedan en rojo</li>
+            </ul>
+        </div>
+    </div>
 </body>
 <script src="myScript.js"></script>
 <script src="beastPassives.js"></script>

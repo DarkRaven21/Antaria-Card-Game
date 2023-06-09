@@ -159,6 +159,7 @@ body {
 #resourcesContainer {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 5px;
 }
 
@@ -169,6 +170,21 @@ body {
   width: 50px;
   height: 50px;
   border: solid 1px black;
+}
+
+#help {
+  border-radius: 100vh;
+  font-size: 2em;
+  font-weight: bold;
+  background-color: rgb(255, 255, 255);
+  width: 40px!important;
+  height: 40px!important;
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+
+#help:hover {
+  background-color: rgb(156, 153, 153);
 }
 
 #totalResources{
@@ -419,6 +435,15 @@ body {
   background-image:  linear-gradient(0deg, rgba(0,0,255,0.4), rgba(0,0,255,0.2)), url(img/BackGround/papyrus.jpg);
 }
 
+#handCardFrame[data-type='item'],
+.item-equipped.show{
+  background-image:  linear-gradient(0deg, rgba(255,255,255,0.6), rgba(255,255,255,0.4)), url(img/BackGround/papyrus.jpg);
+}
+
+#handCardFrame[data-type='item'] #cost{
+  background-color: grey;
+}
+
 .handPlayingCard,
 .item-equipped {
   position: absolute;
@@ -492,7 +517,7 @@ body {
 
 #handContainerPassive {
   display: grid;
-  height: 100px;
+  height: 96px;
 }
 
 #handContainerPassive div {
@@ -583,6 +608,21 @@ body {
   cursor: zoom-out;
 }
 
+.dead-beast{
+  opacity: 0.5;
+}
+
+.dead-beast::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #898989;
+  opacity: 0.8;
+}
+
 /* Item Equipped */
 
 /* Tengo que sacar border top y padding top, para que parezca que la carta esta atras de la otra */
@@ -606,7 +646,7 @@ body {
 }
 
 .item-equipped .handPassive {
-  height: 84px;
+  height: 80px;
 }
 
 .item-equipped:not(.first){
@@ -639,6 +679,31 @@ body {
 
 #cardFrameHero #cardContainer {
   overflow: initial
+}
+
+.parent-popup {
+  position: absolute;
+  inset: 0;
+  background-color: #808080cc;
+  z-index: 90;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inside-popup{
+  background-color: white;
+  border-radius: 8px;
+  padding: 1em;
+}
+
+.tutorial{
+  display: grid;
+  gap: 0.4em;
+}
+
+.hidden {
+  display: none!important;
 }
 
 @keyframes put-on-top {

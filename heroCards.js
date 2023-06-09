@@ -48,7 +48,7 @@ let thuldir = {
     startTurnPassive1: pBerserk, 
     startTurnPassive2:"", 
     endTurnPassive1:"", 
-    endTurnPassive2:"", 
+    endTurnPassive2:"",
     conditionalPassive1:"",
     conditionalPassive2:"",
     ability1: "",

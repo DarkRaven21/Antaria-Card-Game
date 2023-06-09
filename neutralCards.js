@@ -33,9 +33,9 @@ let sharpen = {
     cost: "2",
     type: "magic",
     img: 'img/Neutrals/Sharpen.png',
-    conditionalPassive1: function sharpen(){alert('sharpen used')},
+    conditionalPassive1: useSharpen,
     cardEffectOnSucces: "",
-    passiveText1: "Otorgas a tu arma un filo devastador. Ganas 1 recurso de ataque extra por cada item equipado",
+    passiveText1: "Otorgas a tu arma un filo devastador y ganas 1 recurso rojo. Ganas 1 recurso rojo extra por cada item equipado",
     passiveText2: "",
     cardTextOnSucces:""
 }

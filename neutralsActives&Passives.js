@@ -41,6 +41,25 @@ function sufferRetailation(number){
     }
 }
 
+function useSharpen(){
+    if (blueResource >=2){
+        let zone = document.getElementById("hero-zone");
+        let activeHero = zone.querySelectorAll("#cardFrameHero");
+        redResource++;
+        for (let i=0; i<activeHero.length; i++){
+          if (activeHero[i].dataset.item != ""){
+            redResource++;
+          }
+        }
+        writeInCombatHistory("Una ola de energía mágica le da a tus armas un filo sin igual", "blue")
+        blueResource -= 2;
+        updateResourcesDivs();
+        removeHandCard(magicCardInUse);
+    } else {
+    showMsg("No tienes los recursos suficientes");
+    }
+}
+
 function testingEffect(){
     alert("Working");
 }

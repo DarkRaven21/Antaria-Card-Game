@@ -9,6 +9,7 @@
     let redResDiv = document.getElementById("redResource");
     let orangeResDiv = document.getElementById("orangeResource");
     let blueResDiv = document.getElementById("blueResource");
+    let helpButton = document.getElementById("help")
     
     let startButton = document.getElementById("startButton");
     let isInitialFase = "false"
@@ -17,6 +18,7 @@
     let endButton = document.getElementById("endButton");
     let resetButton = document.getElementById("resetButton")
     let combatHistory = document.getElementById("combatHistory");
+    let popupCloseBtn = document.querySelectorAll('.parent-popup');
 
     let passivesButton = document.getElementsByClassName("passive");
     let isGameStarted = "false"
@@ -46,7 +48,20 @@
     startButton.addEventListener("click", startGame)
     attackButton.addEventListener("click", attackBeast)
     endButton.addEventListener("click", endTurn)
+    helpButton.addEventListener("click", function(){
+      toggleHide("#popup");
+    })
     resetButton.addEventListener("click", resetGame)
+
+    // for (let i = 0; i < popupCloseBtn.length; i++) {
+    //   popupCloseBtn[i].addEventListener;
+    // }
+
+    popupCloseBtn.forEach(element => {
+      element.addEventListener("click", function(){
+        toggleHide("#popup");
+      })
+    });
     
     //Functions
     
@@ -503,6 +518,7 @@
               writeInCombatHistory("Has eliminado a " + name, 'red')
               showMsg("Esta Bestia ha muerto")
               beasts[id].isAlive = "false";
+              beast.classList.add("dead-beast");
               break
             }
             writeInCombatHistory("Has herido a " + name, "red");
@@ -557,6 +573,9 @@
       cost.textContent = neutrals[cardId].cost;
       img.src = neutrals[cardId].img;
       passiveText.textContent = neutrals[cardId].passiveText1;
+      if (card.classList.contains('hidden')){
+        card.classList.remove("hidden")
+      }
     }
 
     function useCard(){
@@ -854,7 +873,7 @@ function useResources(cardCost) {
 function fillItemCard(card){
   let itemCard = card.querySelector(".item-equipped");
   let id = itemInUse;
-  //itemCard.querySelector(".item-equipped-image") = neutrals[id].image;
+  itemCard.querySelector(".item-equipped-image").src = neutrals[id].img;
   itemCard.querySelector("#nameHand").textContent = neutrals[id].name;
   itemCard.querySelector("#cost").textContent = neutrals[id].cost;
   itemCard.querySelector(".handPassive").textContent = neutrals[id].passiveText1;
@@ -868,17 +887,29 @@ function discardItem(){
   let zone = document.getElementById("hand-zone");
   let card = zone.querySelectorAll("#handCardFrame");
   for (let i=0; i<card.length; i++){
-    console.log(card[i].dataset.id);
-    if(card[i].dataset.id == itemInUse){
-      card[i].style.display = "none";
+    if(card[i].dataset.id == itemInUse && !card[i].classList.contains("hidden")){
+      // card[i].style.display = "none";
+      card[i].classList.add("hidden");
       break
     }
   }
   itemInUse = "";
 }
 
-// Las habilidades no funcionan en la segunda carta. Reparar
+function toggleHide(elementQuery){
+  let element = '';
+  if (elementQuery == undefined){
+    element = this;
+  } else {
+    element = document.querySelector(elementQuery);
+  }
 
+  if (element.classList.contains("hidden")){
+    element.classList.remove("hidden");
+  } else {
+    element.classList.add("hidden");
+  }
+}
 
 
 
