@@ -60,6 +60,11 @@ function useSharpen(){
     }
 }
 
+function useShadowStrike(){
+    magicCardInUse = findCardInGame(this.id, "Neutral");
+    doDamage(0, "beast", "neutral");
+}
+
 function testingEffect(){
     alert("Working");
 }

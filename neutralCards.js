@@ -74,16 +74,16 @@ neutrals.push(overwhelm);
 
 let sword = {
     id: 5,
-    name:"Sword", 
+    name:"Espada Pirata", 
     cost:"3", 
     type: "item",
     itemType: "sword",
-    img: 'img/Neutrals/Sword.jpg',
+    img: 'img/Neutrals/Sword.png',
     startTurnItem1: sharpEdge,
     startTurnItem2:"", 
     endTurnItem1: "", 
     endTurnItem2:"", 
-    conditionalItem1: "",
+    effectOnEquip1: "",
     conditionalItem2:"",
     passiveText1: "Agrega 1 recurso rojo al principio de cada turno",
     passiveText2: "",
@@ -91,3 +91,40 @@ let sword = {
 };
 neutrals.push(sword);
 
+let iceAxe = {
+    id: 6,
+    name:"Hacha de acero frío", 
+    cost:"3", 
+    type: "item",
+    itemType: "axe",
+    img: 'img/Neutrals/iceAxe.png',
+    startTurnItem1: sharpEdge,
+    startTurnItem2:"", 
+    endTurnItem1: "", 
+    endTurnItem2:"", 
+    effectOnEquip1: "",
+    conditionalItem2:"",
+    passiveText1: "Agrega 1 recurso rojo al principio de cada turno",
+    passiveText2: "",
+    cardTextOnSucces:""
+};
+neutrals.push(iceAxe);
+
+let shadowAxe = {
+    id: 7,
+    name:"Hacha Sombra", 
+    cost:"5", 
+    type: "item",
+    itemType: "axe",
+    img: 'img/Neutrals/shadowAxe.png',
+    startTurnItem1: sharpEdge,
+    startTurnItem2:"", 
+    endTurnItem1: "", 
+    endTurnItem2:"", 
+    effectOnEquip1: useShadowStrike,
+    conditionalItem2:"",
+    passiveText1: "Cuando se equipa, realiza un ataque gratis contra una bestia",
+    passiveText2: "Agrega 1 recurso rojo al principio de cada turno",
+    cardTextOnSucces:"Realizas un corte rápido y certero, la hoja de tu arma corta la carne sin dificultad alguna"
+};
+neutrals.push(shadowAxe);

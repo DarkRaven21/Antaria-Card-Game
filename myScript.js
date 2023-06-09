@@ -418,6 +418,13 @@
           showMsg(`Elige una ${receivedTarget} card`);
           return 
       }
+      else if (receivedType == "neutral"){
+        actionCost = recievedCost;
+        actionTarget = receivedTarget;
+        actionType = receivedType;
+        showMsg(`Elige una ${receivedTarget} card`);
+        return 
+      }
     }
 
     function paintRedMsg(){
@@ -430,6 +437,9 @@
       }
       if (actionType == "magic"){
         performMagic(this);
+      }
+      if (actionType == "neutral"){
+        performNeutral(this);
       }
     }
     
@@ -483,11 +493,11 @@
     function performMagic(x){
       if (x.dataset.type == "beast" && actionTarget == "beast") {
         if (blueResource >= (actionCost + parseInt(x.dataset.blueRatio))){ 
-          checkMagicCardText(magicCardInUse);
+          checkNeutralCardText(magicCardInUse);
           paintRedNew(x);
           blueResource -= (actionCost +  parseInt(x.dataset.blueRatio));
           checkConditionalPassives();
-          checkMagicCardEffect(magicCardInUse);
+          checkNeutralCardEffect(magicCardInUse);
           clearActions();
           updateResourcesDivs();
           removeHandCard(magicCardInUse);
@@ -505,6 +515,24 @@
         performAbilityOnHero(x);
     }
     }
+
+    function performNeutral(x){
+      if (x.dataset.type == "beast" && actionTarget == "beast") {
+        checkNeutralCardText(magicCardInUse);
+        paintRedNew(x);
+        checkConditionalPassives();
+        clearActions();
+        updateResourcesDivs();
+      }
+      else if (x.dataset.type == "beast" && actionTarget != "beast") {
+        showMsg("Has elegido el objetivo equivocado");
+        //clearActions();
+      }
+      else if (x.dataset.type == "hero" && actionTarget == "hero"){
+          performNeutralOnHero(x);
+      }
+      //Add More Cases
+  }
     
     function paintRedNew(beast){
       let id = beast.dataset.id;
@@ -535,6 +563,11 @@
     function performAbilityOnHero(hero){
         showMsg("Has seleccionado una carta de Héroe");
         //I need to make this
+    }
+
+    function performNeutralOnHero(hero){
+      showMsg("Has seleccionado una carta de Héroe");
+      //I need to make this
     }
 
     function clearActions(){
@@ -724,11 +757,11 @@
       }
     }
 
-    function checkMagicCardEffect(card){
+    function checkNeutralCardEffect(card){
       neutrals[card.dataset.id].cardEffectOnSucces();
     }
 
-    function checkMagicCardText(card){
+    function checkNeutralCardText(card){
       let text = neutrals[card.dataset.id].cardTextOnSucces;
       writeInCombatHistory(text, 'blue');
     }
@@ -880,6 +913,7 @@ function useItem(card){
 
 //Esto es lo que está en imageHero
 function equipItem(){
+  let idItem = itemInUse;
   removeGlow();
   if (actionType == "item" && actionTarget == "hero"){
     if(totalResources >= actionCost){
@@ -887,8 +921,17 @@ function equipItem(){
       let fullCard = this.parentNode.parentNode.parentNode;
       this.parentNode.parentNode.dataset.item = itemInUse;
       fillItemCard(fullCard);
-      clearActions(); //No se como se llama, pero lo que limpia los cost, types y eso
+      clearActions();
+      checkItemEquipEffect(idItem);
     }
+  }
+}
+
+function checkItemEquipEffect(idItem){
+  let id = idItem;
+
+  if (neutrals[id].effectOnEquip1 != ""){
+    neutrals[id].effectOnEquip1();
   }
 }
 
@@ -950,7 +993,16 @@ function toggleHide(elementQuery){
   }
 }
 
-
+function findCardInGame(id, type){
+  if (type == "Neutral"){
+    let cards = document.querySelectorAll("#handCardFrame");
+    for (let i = 0; i < cards.length; i++) {
+      if (cards[i].dataset.id == id){
+        return cards[i];
+      }
+    }
+  }
+}
 
 
 
