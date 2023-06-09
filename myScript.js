@@ -519,6 +519,7 @@
               showMsg("Esta Bestia ha muerto")
               beasts[id].isAlive = "false";
               beast.classList.add("dead-beast");
+              isGameWon();
               break
             }
             writeInCombatHistory("Has herido a " + name, "red");
@@ -820,6 +821,17 @@ function isGameOver(){
   }
 }
 
+function isGameWon(){
+  let zone = document.getElementById('beast-zone');
+  let beastCard = zone.querySelectorAll('#cardFrameBeast');
+  for (let i = 0; i < beastCard.length; i++) {
+    if(!beastCard[i].classList.contains('dead-beast')){
+      break;
+    } else {
+      showMsg('Has ganado, todas las Bestias han sido eliminadas');
+    }
+  }
+}
 
 //Item
 
