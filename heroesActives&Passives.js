@@ -16,11 +16,25 @@ function aHeal() {
       }
     }
     else {
-    showMsg("No tienes los recursos suficientes");
+        showMsg("No tienes los recursos suficientes");
     }
 }
 
-
+function aStrongHeal(){
+    if(orangeResource >= 3){
+        if (removeRed() === true){
+            writeInCombatHistory("Un impacto de luz cura tus heridas", "orange")
+            orangeResource -= 3;
+            updateResourcesDivs();
+        } 
+        else {
+            showMsg("Tu vida está al máximo");
+        }
+      }
+      else {
+        showMsg("No tienes los recursos suficientes");
+      }
+}
 
 
 
@@ -52,4 +66,14 @@ function pMasterSwordsman(){
 function pMasterMagi(){
     blueResource++
     updateResourcesDivs();
+}
+
+function pChainHeal(){
+    let howMuchHealing = wasHealed;
+    if (howMuchHealing > 0){
+        for (let i=0; i<howMuchHealing; i++){
+            removeRed();
+        }
+        writeInCombatHistory('Los efectos de la magia curativa siguen sanando tus heridas', 'orange')
+    }
 }

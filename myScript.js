@@ -30,6 +30,7 @@
     let actionTarget = "none";
     let actionType = "none";
     let actionDamage = 2;
+    let wasHealed = 0;
 
     var magicCardInUse = "";
 
@@ -114,6 +115,7 @@
       checkEndTurnPassives();
       clearResources();
       updateResourcesDivs();
+      wasHealed = 0;
       isInitialFase = "false"
       //clearResources won't be necesary in the final product
     }
@@ -210,6 +212,7 @@
           life[i].setAttribute("data-wounded", "false");
           life[i].style.backgroundColor = "white";
           playerCounters--;
+          wasHealed++;
           return true;
         }
       }
@@ -642,16 +645,8 @@
     }
 
     function checkEndTurnPassives(){
-      let zone = document.getElementById("beast-zone");
-      let activeBeast = zone.querySelectorAll("#cardFrameBeast");
-      for (let i=0; i<activeBeast.length; i++){
-        if (beasts[activeBeast[i].dataset.id].isAlive == "true" && beasts[activeBeast[i].dataset.id].endTurnPassive1 != ""){
-          beasts[activeBeast[i].dataset.id].endTurnPassive1();
-          if (beasts[activeBeast[i].dataset.id].endTurnPassive2 != "") {
-            beasts[activeBeast[i].dataset.id].endTurnPassive2();
-          }
-        }   
-      }
+      checkBeastETPassives();
+      checkHeroETPassives();
     }
     
     function checkStartTurnPassives(){
@@ -685,6 +680,35 @@
         }   
       }
     }
+
+    function checkBeastETPassives(){
+      let zone = document.getElementById("beast-zone");
+      let activeBeast = zone.querySelectorAll("#cardFrameBeast");
+      for (let i=0; i<activeBeast.length; i++){
+        if (beasts[activeBeast[i].dataset.id].isAlive == "true" && beasts[activeBeast[i].dataset.id].endTurnPassive1 != ""){
+          beasts[activeBeast[i].dataset.id].endTurnPassive1();
+          if (beasts[activeBeast[i].dataset.id].endTurnPassive2 != "") {
+            beasts[activeBeast[i].dataset.id].endTurnPassive2();
+          }
+        }   
+      }
+    }
+
+    function checkHeroETPassives(){
+      let zone = document.getElementById("hero-zone");
+      let activeHero = zone.querySelectorAll("#cardFrameHero");
+      for (let i=0; i<activeHero.length; i++){
+        if (heroes[activeHero[i].dataset.id].endTurnPassive1 != ""){
+          heroes[activeHero[i].dataset.id].endTurnPassive1();
+          if (heroes[activeHero[i].dataset.id].endTurnPassive2 != "") {
+            heroes[activeHero[i].dataset.id].endTurnPassive2();
+          }
+        }   
+      }
+    }
+
+
+
     // New
     
     function checkConditionalPassives(){
@@ -824,12 +848,14 @@ function isGameOver(){
 function isGameWon(){
   let zone = document.getElementById('beast-zone');
   let beastCard = zone.querySelectorAll('#cardFrameBeast');
+  let won = 'true'
   for (let i = 0; i < beastCard.length; i++) {
     if(!beastCard[i].classList.contains('dead-beast')){
-      break;
-    } else {
-      showMsg('Has ganado, todas las Bestias han sido eliminadas');
+      won = 'false';
     }
+  }
+  if(won == 'true'){
+    showMsg('Has ganado, todas las Bestias han sido eliminadas');
   }
 }
 
