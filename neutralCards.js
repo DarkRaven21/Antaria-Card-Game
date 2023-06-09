@@ -77,6 +77,7 @@ let sword = {
     name:"Sword", 
     cost:"3", 
     type: "item",
+    itemType: "sword",
     img: 'img/Neutrals/Sword.jpg',
     startTurnItem1: sharpEdge,
     startTurnItem2:"", 

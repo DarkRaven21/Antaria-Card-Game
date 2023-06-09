@@ -33,3 +33,23 @@ function pBerserk(){
     }
 }
 
+function pMasterSwordsman(){
+    console.log(this.id);
+    let zone = document.getElementById("hero-zone");
+    let heroCards = zone.querySelectorAll(".full-hero");
+    
+    for (let i=0; i<heroCards.length; i++){
+        let thisCard = heroCards[i].querySelector("#cardFrameHero");
+        let thisCardItem = heroCards[i].querySelector(".item-equipped");
+
+        if (thisCard.dataset.id == this.id && thisCardItem.dataset.itemType == "sword"){
+            redResource++;
+            updateResourcesDivs();
+        }
+    }
+}
+
+function pMasterMagi(){
+    blueResource++
+    updateResourcesDivs();
+}

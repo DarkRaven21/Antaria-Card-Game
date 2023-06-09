@@ -885,6 +885,7 @@ function useResources(cardCost) {
 function fillItemCard(card){
   let itemCard = card.querySelector(".item-equipped");
   let id = itemInUse;
+  itemCard.dataset.itemType = neutrals[id].itemType;
   itemCard.querySelector(".item-equipped-image").src = neutrals[id].img;
   itemCard.querySelector("#nameHand").textContent = neutrals[id].name;
   itemCard.querySelector("#cost").textContent = neutrals[id].cost;

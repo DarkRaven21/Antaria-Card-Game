@@ -33,8 +33,8 @@ let monnet = {
     ability1: aHeal,
     ability2: aHurt,
     ability3: "",
-    abilityText1: "Curar (2)<br>Quita un contador del jugador",
-    abilityText2: "Herir (3)<br>Aplica un contador a la Bestia seleccionada",
+    abilityText1: "<span><strong>Curar (2)</strong><br>Quita un contador del jugador</span>",
+    abilityText2: "<span><strong>Herir (3)</strong><br>Aplica un contador a la Bestia seleccionada</span>",
     abilityText3: "" 
 }
 heroes.push(monnet)
@@ -54,7 +54,7 @@ let thuldir = {
     ability1: "",
     ability2: "",
     ability3: "",
-    abilityText1: "Pasiva<br>Gana 1 recurso rojo extra al principio del turno si el jugador tiene al menos 3 contadores rojos sobre su persona",
+    abilityText1: "<span><strong>Pasiva</strong><br>Gana 1 recurso rojo extra al principio del turno si el jugador tiene al menos 3 contadores rojos sobre su persona</span>",
     abilityText2: "",
     abilityText3: "" 
 }
@@ -64,7 +64,8 @@ let yvonne = {
     id: 2,
     cardClass: "yvonne",
     name:"Yvonne", 
-    life:"3", 
+    life:"3",
+    img:"img/Heroes/Yvonne.png",
     startTurnPassive1:pMasterSwordsman, 
     startTurnPassive2:"", 
     endTurnPassive1:"", 
@@ -85,6 +86,7 @@ let moboa = {
     cardClass: "moboa",
     name:"Moboa", 
     life:"3", 
+    img: "img/Heroes/Moboa.png",
     startTurnPassive1:pMasterMagi, 
     startTurnPassive2:"", 
     endTurnPassive1:"", 
