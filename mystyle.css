@@ -172,6 +172,20 @@ body {
   border: solid 1px black;
 }
 
+.payCost {
+  background-color: black!important;
+  margin-right: 0.5em;
+  color: white;
+}
+
+#payTitle {
+  margin-bottom: 1em;
+}
+
+.spend {
+  cursor: pointer;
+}
+
 #help {
   border-radius: 100vh;
   font-size: 2em;
