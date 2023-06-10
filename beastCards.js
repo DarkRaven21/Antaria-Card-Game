@@ -111,3 +111,26 @@ let nikTaliHa = {
   blueRatio:0
 }
 beasts.push(nikTaliHa);
+
+let minnarak = {
+  id: 4,
+  name:"Minnarak", 
+  life:"3", 
+  defense:"4", 
+  isAlive: "true",
+  withEffect:"false", 
+  startTurnPassive1: webbedZone,
+  startTurnPassive2:paralizingVenom, 
+  endTurnPassive1: "", 
+  endTurnPassive2:"", 
+  conditionalPassive1: venomBite,
+  conditionalPassive2:"",
+  passiveText1: "Te hace perder un recurso de tipo naranja durante la fase inicial",
+  passiveText2: "Cada vez que el jugador ataque esta carta recibirá un contador de veneno",
+  passiveText3: "El jugador perderá un recurso al azar al inicio del turno por cada contador de veneno",
+  img: "img/minnarak.png",
+  orangeRatio:0, 
+  redRatio:0, 
+  blueRatio:0
+}
+//beasts.push(minnarak);

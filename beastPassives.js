@@ -17,9 +17,14 @@ if (this.life >= 3 && this.isAlive == "true"){
 }
 
 function tailHit(){
-    if(blueResource >= 1){
-        return;
+  if (this.isAlive == "true" && targetBeast == this.id){
+    if(isAttacking=='true' && redResource >= 1){
+      receiveCounter();
+      //Write here
+      writeInCombatHistory();
+      return;
     }
+  }
 }
 
 function hardScales() {
@@ -102,3 +107,20 @@ function opportunist() {
     return
   }
   
+  //Minnarak
+  function webbedZone(){
+    if(orangeResource >= 1){
+      orangeResource -= 1;
+      updateResourcesDivs();
+    }
+  }
+
+  function venomBite(){
+    //Make
+    return;
+  }
+
+  function paralizingVenom(){
+    //Make
+    return;
+  }

@@ -123,8 +123,8 @@ let shadowAxe = {
     endTurnItem2:"", 
     effectOnEquip1: useShadowStrike,
     conditionalItem2:"",
-    passiveText1: "Cuando se equipa, realiza un ataque gratis contra una bestia",
-    passiveText2: "Agrega 1 recurso rojo al principio de cada turno",
+    passiveText1: "Agrega 1 recurso rojo al principio de cada turno<br>---<br>Cuando se equipa, realiza un ataque gratis contra una bestia  ",
+    passiveText2: "",
     cardTextOnSucces:"Realizas un corte rápido y certero, la hoja de tu arma corta la carne sin dificultad alguna"
 };
 neutrals.push(shadowAxe);

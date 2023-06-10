@@ -31,6 +31,7 @@
     let actionType = "none";
     let actionDamage = 2;
     let wasHealed = 0;
+    let targetBeast = '';
 
     var magicCardInUse = "";
 
@@ -437,6 +438,7 @@
     function performAttack(x){
       if (x.dataset.type == "beast") {
           if (redResource >= x.dataset.defense){
+            targetBeast = x.dataset.id;
             paintRedNew(x);
             redResource -= x.dataset.defense;
             checkConditionalPassives();
@@ -566,6 +568,7 @@
         actionTarget = "none";
         actionType = "none";
         actionDamage = 1;
+        targetBeast = '';
     }
 
     //Magic Cards
@@ -600,7 +603,7 @@
       name.textContent = neutrals[cardId].name;
       cost.textContent = neutrals[cardId].cost;
       img.src = neutrals[cardId].img;
-      passiveText.textContent = neutrals[cardId].passiveText1;
+      passiveText.innerHTML = neutrals[cardId].passiveText1;
       if (card.classList.contains('hidden')){
         card.classList.remove("hidden")
       }
