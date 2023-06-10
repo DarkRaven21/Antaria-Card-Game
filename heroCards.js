@@ -118,7 +118,7 @@ let fenrir = {
     ability2: "",
     ability3: "",
     abilityText1: "<span><strong>Curar (3)</strong><br>Quita 1 contador de tu persona</span>",
-    abilityText2: "<span><strong>Curación en cadena</strong><br>Quita un contador extra de tu persona si te has curado este turno</span>",
+    abilityText2: "<span><strong>Curación en cadena</strong><br>Quita un contador extra de tu persona por cada curación realizada este turno</span>",
     abilityText3: "" 
 }
 heroes.push(fenrir);

@@ -18,7 +18,7 @@
     let endButton = document.getElementById("endButton");
     let resetButton = document.getElementById("resetButton")
     let combatHistory = document.getElementById("combatHistory");
-    let popupCloseBtn = document.querySelectorAll('.parent-popup');
+
 
     let passivesButton = document.getElementsByClassName("passive");
     let isGameStarted = "false"
@@ -52,17 +52,8 @@
     helpButton.addEventListener("click", function(){
       toggleHide("#popup");
     })
-    resetButton.addEventListener("click", resetGame)
-
-    // for (let i = 0; i < popupCloseBtn.length; i++) {
-    //   popupCloseBtn[i].addEventListener;
-    // }
-
-    popupCloseBtn.forEach(element => {
-      element.addEventListener("click", function(){
-        toggleHide("#popup");
-      })
-    });
+    resetButton.addEventListener("click", resetGame);
+    addEventListenersToPopups(); 
     
     //Functions
     
@@ -899,6 +890,10 @@ function useItem(card){
   actionCost = card.querySelector("#cost").textContent;
   actionType = "item";
   actionTarget = "hero";
+  if (actionCost > resources){
+    showMsg('No tienes los recursos necesarios para usar este item');
+    clearActions();
+  }
   showMsg("Elige un heroe");
   addGlow();
 }
@@ -916,13 +911,14 @@ function equipItem(){
   let idItem = itemInUse;
   removeGlow();
   if (actionType == "item" && actionTarget == "hero"){
-    if(totalResources >= actionCost){
+    if(resources >= actionCost){
       useResources(actionCost);
       let fullCard = this.parentNode.parentNode.parentNode;
       this.parentNode.parentNode.dataset.item = itemInUse;
       fillItemCard(fullCard);
       clearActions();
-      checkItemEquipEffect(idItem);
+    } else {
+      showMsg('No tienes los recursos suficientes para equipar este item');
     }
   }
 }
@@ -936,7 +932,7 @@ function checkItemEquipEffect(idItem){
 }
 
 //Esta funcion es para descontar los recursos del jugador desde ataque hasta habilidad
-function useResources(cardCost) {
+function useResources2(cardCost) {
   let cost = cardCost;
   while (cost > 0){
     if (redResource > 0){
@@ -951,6 +947,64 @@ function useResources(cardCost) {
   updateResourcesDivs();
 }
 
+var itemCost = 0;
+
+function useResources(cardCost) {
+  itemCost = cardCost;
+  toggleHide("#popup-resources");
+
+  document.querySelector('.payCost').textContent = itemCost;
+  document.querySelector('.payRed').textContent = redResource;
+  document.querySelector('.payOrange').textContent = orangeResource;
+  document.querySelector('.payBlue').textContent = blueResource;
+}
+
+function addEventListenersToPopups(){
+  let popupResource = document.querySelectorAll('.spend');
+  let popupCloseBtn = document.querySelectorAll('#popup');
+
+  popupResource.forEach(element => {
+    element.addEventListener('click', function(){
+      spend(this);
+    })
+  });
+  popupCloseBtn.forEach(element => {
+    element.addEventListener("click", function(){
+      toggleHide("#popup");
+    })
+  });
+}
+
+function spend(data){
+  let itemCostDiv = document.querySelector('.payCost');
+
+  if (data.id == "redResource" && redResource > 0){
+    redResource--;
+    itemCost--;
+    itemCostDiv.textContent = itemCost;
+    data.textContent = redResource;
+  }
+  if (data.id == "blueResource" && blueResource > 0){
+    blueResource--;
+    itemCost--;
+    itemCostDiv.textContent = itemCost;
+    data.textContent = blueResource;
+  }
+  if (data.id == "orangeResource" && orangeResource > 0){
+    orangeResource--;
+    itemCost--;
+    itemCostDiv.textContent = itemCost;
+    data.textContent = orangeResource;
+  }
+
+  if (itemCost <= 0){
+    updateResourcesDivs();
+    toggleHide("#popup-resources");
+    checkItemEquipEffect(itemInUse);
+    itemInUse = "";
+  }
+}
+
 function fillItemCard(card){
   let itemCard = card.querySelector(".item-equipped");
   let id = itemInUse;
@@ -962,7 +1016,6 @@ function fillItemCard(card){
   itemCard.classList.add("show");
 
   discardItem();
-  itemInUse = "";
 }
 
 function discardItem(){
@@ -970,12 +1023,10 @@ function discardItem(){
   let card = zone.querySelectorAll("#handCardFrame");
   for (let i=0; i<card.length; i++){
     if(card[i].dataset.id == itemInUse && !card[i].classList.contains("hidden")){
-      // card[i].style.display = "none";
       card[i].classList.add("hidden");
       break
     }
   }
-  itemInUse = "";
 }
 
 function toggleHide(elementQuery){
