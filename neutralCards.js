@@ -15,7 +15,7 @@ const neutrals = [
 
 let fireball = {
     id: 1,
-    name: "Fireball",
+    name: "Bola de fuego",
     cost: "3",
     type: "magic",
     img: 'img/Neutrals/Fire_Bomb.png',
@@ -29,7 +29,7 @@ neutrals.push(fireball);
 
 let sharpen = {
     id: 2,
-    name: "Sharpen",
+    name: "Afilar",
     cost: "2",
     type: "magic",
     img: 'img/Neutrals/Sharpen.png',
@@ -43,7 +43,7 @@ neutrals.push(sharpen);
 
 let healingBolt = {
     id: 3,
-    name: "Healing Bolt",
+    name: "Luz curativa",
     cost: "2",
     type: "magic",
     img: 'img/Neutrals/Healing_Bolt.png',
@@ -57,7 +57,7 @@ neutrals.push(healingBolt);
 
 let overwhelm = {
     id: 4,
-    name: "Overwhelm",
+    name: "Abrumar",
     cost: "4",
     type: "magic",
     img: 'img/Neutrals/Overwhelm.png',
