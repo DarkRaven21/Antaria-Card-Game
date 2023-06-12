@@ -128,3 +128,17 @@ let shadowAxe = {
     cardTextOnSucces:"Realizas un corte rápido y certero, la hoja de tu arma corta la carne sin dificultad alguna"
 };
 neutrals.push(shadowAxe);
+
+let lightning = {
+    id: 8,
+    name: "Convocar rayo",
+    cost: "3",
+    type: "magic",
+    img: 'img/Neutrals/Call_Lightning.png',
+    conditionalPassive1: useLightning,
+    cardEffectOnSucces: doNothing,
+    passiveText1: "Un devastador ataque eléctrico que aplica 1 contador al enemigo seleccionado",
+    passiveText2: "",
+    cardTextOnSucces:"Atacas al enemigo con la fuerza de un rayo"
+}
+neutrals.push(lightning);

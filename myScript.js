@@ -866,7 +866,7 @@ function getPlayerLife(){
 function isGameOver(){
   if(playerCounters >= playerLife){
     setTimeout(() => {
-      alert("The Game is Over. You've Lost");
+      alert("Las bestias han eliminado a todos tus heroes. Has perdido");
       resetGame();
     }, "10");
   }

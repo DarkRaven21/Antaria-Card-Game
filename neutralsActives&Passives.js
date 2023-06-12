@@ -65,6 +65,10 @@ function useShadowStrike(){
     doDamage(0, "beast", "neutral");
 }
 
+function useLightning(){
+    doDamage(3, "beast", "magic");
+}
+
 function testingEffect(){
     alert("Working");
 }
