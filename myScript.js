@@ -135,7 +135,7 @@
       resources = 0;
       let diceThrow = 0;
       
-      while(resources<5){
+      while(resources<(5-venomCounters)){
         diceThrow = getRandomNumber(1,3);
         if(diceThrow == 1){
           blueResource++

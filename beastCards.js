@@ -120,7 +120,7 @@ let minnarak = {
   isAlive: "true",
   withEffect:"false", 
   startTurnPassive1: webbedZone,
-  startTurnPassive2:paralizingVenom, 
+  startTurnPassive2: paralizingVenom, 
   endTurnPassive1: "", 
   endTurnPassive2:"", 
   conditionalPassive1: venomBite,
@@ -128,9 +128,9 @@ let minnarak = {
   passiveText1: "Te hace perder un recurso de tipo naranja durante la fase inicial",
   passiveText2: "Cada vez que el jugador ataque esta carta recibirá un contador de veneno",
   passiveText3: "El jugador perderá un recurso al azar al inicio del turno por cada contador de veneno",
-  img: "img/minnarak.png",
+  img: "img/Minnarak.png",
   orangeRatio:0, 
   redRatio:0, 
   blueRatio:0
 }
-//beasts.push(minnarak);
+beasts.push(minnarak);
