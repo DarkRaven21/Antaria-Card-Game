@@ -27,7 +27,7 @@ let anruk = {
   defense:"3", 
   isAlive: "true",
   withEffect:"false", 
-  startTurnPassive1: hardScales,
+  startTurnPassive1: ominousPresence,
   startTurnPassive2:"", 
   endTurnPassive1: predator, 
   endTurnPassive2:"", 
@@ -47,14 +47,14 @@ let laos = {
   id: 1,
   name:"Laos", 
   life:"3", 
-  defense:"2", 
+  defense:"3", 
   isAlive: "true",
   withEffect:"false", 
-  startTurnPassive1: debilidadMagica,
+  startTurnPassive1: magicWeakness,
   startTurnPassive2:"", 
-  endTurnPassive1: pinzamiento, 
+  endTurnPassive1: crusherClaw, 
   endTurnPassive2:"", 
-  conditionalPassive1: caparazon,
+  conditionalPassive1: carapace,
   conditionalPassive2: "",
   passiveText1: "Al final del turno aplica un contador al jugador",
   passiveText2: "+1 de Defensa por cada contador en esta carta",
@@ -134,3 +134,49 @@ let minnarak = {
   blueRatio:0
 }
 beasts.push(minnarak);
+
+let thuk = {
+  id: 5,
+  name:"Thuk", 
+  life:"3", 
+  defense:"3", 
+  isAlive: "true",
+  withEffect:"false", 
+  startTurnPassive1: "",
+  startTurnPassive2: "", 
+  endTurnPassive1: activeHunt, 
+  endTurnPassive2:"", 
+  conditionalPassive1: enragedDefense,
+  conditionalPassive2: enragedPresence,
+  passiveText1: "Aplica 1 contador al jugador si al final del turno tiene al menos un recurso rojo sin utilizar",
+  passiveText2: "Si esta carta tiene al menos 1 contador, gana 1 de Defensa",
+  passiveText3: "Si esta carta tiene al menos 2 contadores, el jugador lanzará un dado menos al inicio del turno",
+  img: "img/Thuk.png",
+  orangeRatio:0, 
+  redRatio:0, 
+  blueRatio:0
+}
+beasts.push(thuk);
+
+let blanche = {
+  id: 6,
+  name:"Blanche", 
+  life:"3", 
+  defense:"2", 
+  isAlive: "true",
+  withEffect:"false", 
+  startTurnPassive1: "",
+  startTurnPassive2: "", 
+  endTurnPassive1: swoopingDown, 
+  endTurnPassive2:"", 
+  conditionalPassive1: fromAbove,
+  conditionalPassive2: flyingHigh,
+  passiveText1: "Solo se puede atacar cuando haya muerto al menos una Bestia",
+  passiveText2: "Si tiene toda la vida, las habilidades y magias usadas contra esta carta cuestan 1 mas",
+  passiveText3: "Si esta carta no tiene un contador al final del turno. Aplica 1 contador al jugador.",
+  img: "img/Blanche.png",
+  orangeRatio:1,
+  redRatio:0, 
+  blueRatio:1
+}
+beasts.push(blanche);

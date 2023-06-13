@@ -43,8 +43,6 @@
     let playerCounters = 0;
 
     let itemInUse = "";
-
-
     
     //Event Listeners
     startButton.addEventListener("click", startGame)
@@ -134,8 +132,11 @@
     function getResources(){
       resources = 0;
       let diceThrow = 0;
+
+      let resourceModifiers = (venomCounters + enragedCounters);
+      if (resourceModifiers > 5) {resourceModifiers = 5};
       
-      while(resources<(5-venomCounters)){
+      while(resources<(5-resourceModifiers)){
         diceThrow = getRandomNumber(1,3);
         if(diceThrow == 1){
           blueResource++
@@ -436,7 +437,7 @@
     }
     
     function performAttack(x){
-      if (x.dataset.type == "beast") {
+      if (x.dataset.type == "beast" && x.dataset.notAttackable != 'true') {
           if (redResource >= x.dataset.defense){
             targetBeast = x.dataset.id;
             paintRedNew(x);
@@ -453,7 +454,7 @@
           }
         } 
       else {
-          showMsg("No puedes atacar Héroes");
+          showMsg("No puedes realizar este ataque");
           removeAttack();
           clearActions();
         }
@@ -669,6 +670,9 @@
       let card = zone.querySelector("[data-id='"+id+"']");
       card.dataset.defense = beasts[id].defense;
       card.querySelector("#defense").textContent = beasts[id].defense;
+      card.dataset.redRatio = beasts[id].redRatio;
+      card.dataset.blueRatio = beasts[id].blueRatio;
+      card.dataset.orangeRatio = beasts[id].orangeRatio;
     }
 
     function checkEndTurnPassives(){

@@ -1,7 +1,7 @@
 function predator(){
   if (this.life >= 3){
     receiveCounter();
-    writeInCombatHistory("Anruk te ataca desde las sombras");
+    writeInCombatHistory("Anruk ataca a tus heroes desde las sombras");
   }
 }
 
@@ -15,36 +15,38 @@ function tailHit(){
   }
 }
 
-function hardScales() {
+function ominousPresence() {
     if(redResource >= 1){
         redResource -= 1;
         updateResourcesDivs();
     }
 }
 
-function debilidadMagica() {
+//Laos
+function magicWeakness() {
     return;
 }
 
-function pinzamiento(){
+function crusherClaw(){
   receiveCounter();
   writeInCombatHistory("Laos arremete contra tus heroes");
 }
 
-function caparazon(){
+function carapace(){
   if (this.life < 3){
-    this.defense = 3;
+    this.defense = 4;
     if (this.life < 2){
-      this.defense = 4;
+      this.defense = 5;
     } 
     updateCard(this.id);
   };
 }
 
+//Jayce
 function opportunist() {
   if (blueResource > 0){
     receiveCounter();
-    writeInCombatHistory("Jayce huele magia en el aire y te ataca con sus poderosas garras");
+    writeInCombatHistory("Jayce huele magia en el aire y ataca a tus heroes con sus poderosas garras");
   };
 }
   
@@ -52,8 +54,6 @@ function antiMagicSkin() {
   return;
 }
 
-
-//Check to see why if it's better in conditional passives
 function corneredBeast() {
   let zone = document.getElementById("beast-zone");
   let beastCards = zone.querySelectorAll("#cardFrameBeast");
@@ -70,6 +70,7 @@ function corneredBeast() {
   }
 }
 
+//Nik'Tali'Ha
 function trance() {
   if (this.life < 2){
       writeInCombatHistory("Nik'Tali'Ha se ha recuperado de todas sus heridas");
@@ -103,6 +104,7 @@ function webbedZone(){
 function venomBite(){
   if (targetBeast == this.id){
     if(isAttacking=='true'){
+      receiveCounter();
       addVenom();
       writeInCombatHistory('Minnarak contraataca e inyecta veneno en tus heroes con sus largos colmillos');
       return;
@@ -134,4 +136,59 @@ function showVenom(){
       break;
     }
   }
+}
+
+//Thuk
+
+var enragedCounters = 0;
+
+function activeHunt(){
+  if (redResource > 0){
+    receiveCounter();
+    writeInCombatHistory("Thuk te ve ansioso de luchar y carga activamente contra tus heroes");
+  };
+}
+
+function enragedDefense(){
+  if (this.life < 3){
+    this.defense = 4;
+    updateCard(this.id);
+  };
+}
+
+function enragedPresence(){
+  if (this.life < 2){
+    enragedCounters = 1;
+  };
+}
+
+//Blanche
+function flyingHigh(){
+  let id = this.id;
+  //Rehacer
+  let zone = document.getElementById("beast-zone");
+  let card = zone.querySelector("[data-id='"+id+"']");
+  let beastCards = zone.querySelectorAll('#cardFrameBeast');
+  card.dataset.notAttackable = 'true';
+  for (let i=0; i<beastCards.length; i++){
+    if (beastCards[i].classList.contains("dead-beast")){
+      card.dataset.notAttackable = '';
+      break;
+    }
+  }
+}
+
+function swoopingDown(){
+  if (this.life = 2){
+    receiveCounter();
+    writeInCombatHistory("Blanche baja desde las alturas a una velocidad increíble y arremete contra tus heroes");
+  }
+}
+
+function fromAbove(){
+  if (this.life < 3){
+    this.orangeRatio = 0;
+    this.blueRatio = 0;
+    updateCard(this.id);
+  };
 }
