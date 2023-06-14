@@ -69,6 +69,24 @@ function useLightning(){
     doDamage(3, "beast", "magic");
 }
 
+function useProtect(){
+    return
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function testingEffect(){
     alert("Working");
 }

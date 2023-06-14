@@ -84,7 +84,6 @@
         addTargets();
         getPlayerLife();
         checkStartTurnPassives();
-        checkStartTurnItems();
         removeGlow();
         addClickables();
         startButton.disabled = true
@@ -154,7 +153,7 @@
     updateResourcesDivs();
     }  
 
-    function checkStartTurnItems(){
+    function checkItemsSTPassives(){
       let zone = document.getElementById("hero-zone");
       let activeHero = zone.querySelectorAll("#cardFrameHero");
       for (let i=0; i<activeHero.length; i++){
@@ -164,6 +163,22 @@
             neutrals[id].startTurnItem1();
             if (neutrals[id].startTurnItem2 != ""){
               neutrals[id].startTurnItem2();
+            }
+          }
+        }
+      }
+    }
+
+    function checkItemsETPassives(){
+      let zone = document.getElementById("hero-zone");
+      let activeHero = zone.querySelectorAll("#cardFrameHero");
+      for (let i=0; i<activeHero.length; i++){
+        if (activeHero[i].dataset.item != ""){
+          let id = activeHero[i].dataset.item;
+          if (neutrals[id].endTurnItem1 != ""){    
+            neutrals[id].endTurnItem1();
+            if (neutrals[id].endTurnItem2 != ""){
+              neutrals[id].endTurnItem2();
             }
           }
         }
@@ -231,7 +246,6 @@
     function receiveCounter(){
       let zone = document.getElementById("hero-zone");
       let life = zone.querySelectorAll(".inner-circle")
-      
       for (i=0; i < life.length; i++){
         if (life[i].dataset.wounded == "false"){
           life[i].setAttribute("data-wounded", "true");
@@ -242,12 +256,36 @@
         }
       }
     }
+
+    function checkShields(){
+      let zone = document.getElementById("hero-zone");
+      let items = zone.querySelectorAll('.item-equipped');
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].dataset.itemType == 'shield'){
+          if (items[i].dataset.durability > 0){
+            writeInCombatHistory('Bloqueas el ataque utilizando tu escudo', 'green')
+            items[i].dataset.durability--
+            if (items[i].dataset.durability == 0){
+              writeInCombatHistory('Tu escudo se hace añicos', 'green')
+              items[i].classList.remove('show');
+            }
+            return true;
+          } 
+        }
+      }
+      return false;
+    }
     
     function writeInCombatHistory(log, color){
       let div = document.createElement('div');
       div.textContent = "- "+log;
       if (color != undefined){
         div.classList.add(color);
+      }
+      if (combatHistory.lastChild){
+        if (combatHistory.lastChild === div){
+          return
+        }
       }
       combatHistory.appendChild(div);
     }
@@ -678,10 +716,12 @@
 
     function checkEndTurnPassives(){
       checkBeastETPassives();
+      checkItemsETPassives();
       checkHeroETPassives();
     }
     
     function checkStartTurnPassives(){
+      checkItemsSTPassives();
       checkBeastSTPassives();
       checkHeroSTPassives();
     }
@@ -1017,6 +1057,9 @@ function fillItemCard(card){
   let itemCard = card.querySelector(".item-equipped");
   let id = itemInUse;
   itemCard.dataset.itemType = neutrals[id].itemType;
+  if (neutrals[id].itemType == "shield" || neutrals[id].itemType == "armor"){
+    itemCard.dataset.durability = neutrals[id].durability;
+  };
   itemCard.querySelector(".item-equipped-image").src = neutrals[id].img;
   itemCard.querySelector("#nameHand").textContent = neutrals[id].name;
   itemCard.querySelector("#cost").textContent = neutrals[id].cost;

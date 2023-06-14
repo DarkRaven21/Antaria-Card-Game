@@ -142,3 +142,23 @@ let lightning = {
     cardTextOnSucces:"Atacas al enemigo con la fuerza de un rayo"
 }
 neutrals.push(lightning);
+
+let justiceShield = {
+    id: 9,
+    name:"Escudo de la justicia", 
+    cost:"3", 
+    type: "item",
+    itemType: "shield",
+    img: 'img/Neutrals/justiceShield.png',
+    durability: 3,
+    startTurnItem1: "",
+    startTurnItem2:"", 
+    endTurnItem1: useProtect, 
+    endTurnItem2:"", 
+    effectOnEquip1: "",
+    conditionalItem2:"",
+    passiveText1: "Protege hasta 3 contadores",
+    passiveText2: "",
+    cardTextOnSucces:""
+};
+neutrals.push(justiceShield);

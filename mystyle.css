@@ -285,6 +285,7 @@ body {
   overscroll-behavior-y: contain;
   scroll-snap-type: y mandatory;
   background-color: var(--card-text-background-color);
+  font-weight: bold;
 }
 
 #combatHistory div:last-child {
@@ -303,18 +304,45 @@ body {
 
 #combatHistory .blue {
   color: blue;
-  font-weight: bold;
 }
 
 #combatHistory .red {
   color: red;
-  font-weight: bold;
 }
 
 #combatHistory .orange {
   color: orange;
-  font-weight: bold;
 }
+
+#combatHistory .green {
+  color: rgb(0, 40, 0);
+}
+
+#combatHistory .lgreen {
+  color: rgb(0, 104, 0);
+}
+
+#combatHistory .dgreen {
+  color: rgb(14, 88, 14);
+}
+
+#combatHistory .lblue {
+  color: rgb(31, 41, 177);
+}
+
+#combatHistory .lbrown {
+  color: rgb(128, 46, 9);
+}
+
+#combatHistory .lred {
+  color: rgb(146, 2, 2);
+}
+
+
+
+
+
+
 
 #alertMsg[aria-expanded="false"]{
   display: none;
