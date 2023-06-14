@@ -36,6 +36,10 @@ function aStrongHeal(){
       }
 }
 
+function aSlitOpen(){
+    doDamage(4, "beast", "ability");
+}
+
 
 
 
@@ -75,5 +79,32 @@ function pChainHeal(){
             removeRed();
         }
         writeInCombatHistory('Los efectos de la magia curativa siguen sanando tus heridas', 'orange')
+    }
+}
+
+function pBeastSlayer(){
+    let zone = document.getElementById('beast-zone');
+    let beastCards = zone.querySelectorAll("#cardFrameBeast");
+    beastCards.forEach(element => {
+        if (element.classList.contains('dead-beast')){
+            redResource++;
+            updateResourcesDivs();
+        }
+    });
+}
+
+function pAxeMaster(){
+    console.log(this.id);
+    let zone = document.getElementById("hero-zone");
+    let heroCards = zone.querySelectorAll(".full-hero");
+    
+    for (let i=0; i<heroCards.length; i++){
+        let thisCard = heroCards[i].querySelector("#cardFrameHero");
+        let thisCardItem = heroCards[i].querySelector(".item-equipped");
+
+        if (thisCard.dataset.id == this.id && thisCardItem.dataset.itemType == "axe"){
+            orangeResource++;
+            updateResourcesDivs();
+        }
     }
 }

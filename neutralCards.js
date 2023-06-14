@@ -68,7 +68,7 @@ let overwhelm = {
     },
     passiveText1: "Un poderoso golpe que aplica dos contadores al objetivo pero que tambien aplica un contador al usuario",
     passiveText2: "",
-    cardTextOnSucces:""
+    cardTextOnSucces:"Arremetes contra el enemigo con todo tu poder",
 }
 neutrals.push(overwhelm);
 

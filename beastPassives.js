@@ -1,5 +1,7 @@
+//Anruk
 function predator(){
   if (this.life >= 3){
+    receiveCounter();
     receiveCounter();
     writeInCombatHistory("Anruk ataca a tus heroes desde las sombras");
   }
@@ -45,6 +47,7 @@ function carapace(){
 //Jayce
 function opportunist() {
   if (blueResource > 0){
+    receiveCounter();
     receiveCounter();
     writeInCombatHistory("Jayce huele magia en el aire y ataca a tus heroes con sus poderosas garras");
   };
@@ -104,7 +107,7 @@ function webbedZone(){
 function venomBite(){
   if (targetBeast == this.id){
     if(isAttacking=='true'){
-      receiveCounter();
+      //receiveCounter();
       addVenom();
       writeInCombatHistory('Minnarak contraataca e inyecta veneno en tus heroes con sus largos colmillos');
       return;
@@ -113,9 +116,12 @@ function venomBite(){
 }
 
 function paralizingVenom(){
-  // if (venomCounters > 0){
-  //   useResources2(venomCounters);
-  // }
+  if (venomCounters > 0){
+    for (let i=0; i<venomCounters; i++){
+      receiveCounter();
+    }
+    writeInCombatHistory('El veneno desintegra la carne a un ritmo alarmante');
+  }
   return;
 }
 
@@ -144,7 +150,9 @@ var enragedCounters = 0;
 
 function activeHunt(){
   if (redResource > 0){
-    receiveCounter();
+    for (let i=0; i<redResource; i++){
+      receiveCounter();
+    }
     writeInCombatHistory("Thuk te ve ansioso de luchar y carga activamente contra tus heroes");
   };
 }

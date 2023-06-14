@@ -544,6 +544,7 @@
               showMsg("Esta Bestia ha muerto")
               beasts[id].isAlive = "false";
               beast.classList.add("dead-beast");
+              actionDamage = 0;
               isGameWon();
               break
             }

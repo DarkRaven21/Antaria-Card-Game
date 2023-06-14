@@ -22,7 +22,7 @@ let monnet = {
     id: 0,
     cardClass: "monnet",
     name:"Monnet", 
-    life:"4", 
+    life:"3", 
     img: "img/Heroes/Monnet.png",
     startTurnPassive1:"", 
     startTurnPassive2:"", 
@@ -34,7 +34,7 @@ let monnet = {
     ability2: aHurt,
     ability3: "",
     abilityText1: "<span><strong>Curar (2)</strong><br>Quita un contador del jugador</span>",
-    abilityText2: "<span><strong>Herir (3)</strong><br>Aplica un contador a la Bestia seleccionada</span>",
+    abilityText2: "<span><strong>Ataque Extenuante (4)</strong><br>Aplica un contador a la Bestia seleccionada</span>",
     abilityText3: "" 
 }
 heroes.push(monnet)
@@ -54,7 +54,7 @@ let thuldir = {
     ability1: "",
     ability2: "",
     ability3: "",
-    abilityText1: "<span><strong>Pasiva</strong><br>Gana 1 recurso rojo extra al principio del turno si el jugador tiene al menos 3 contadores rojos sobre su persona</span>",
+    abilityText1: "<span><strong>Barbarie</strong><br>Gana 1 recurso rojo extra al principio del turno si el jugador tiene al menos 3 contadores rojos sobre su persona</span>",
     abilityText2: "",
     abilityText3: "" 
 }
@@ -122,3 +122,45 @@ let fenrir = {
     abilityText3: "" 
 }
 heroes.push(fenrir);
+
+let solomon = {
+    id: 5,
+    cardClass: "solomon",
+    name:"Solomon", 
+    life:"4", 
+    img: "img/Heroes/Solomon.png",
+    startTurnPassive1: pBeastSlayer, 
+    startTurnPassive2:"", 
+    endTurnPassive1:"", 
+    endTurnPassive2:"", 
+    conditionalPassive1: "",
+    conditionalPassive2:"",
+    ability1: "",
+    ability2: "",
+    ability3: "",
+    abilityText1: "<span><strong>Asesino de Bestias</strong><br>Ganas un contador rojo por cada bestia asesinada</span>",
+    abilityText2: "",
+    abilityText3: "" 
+}
+heroes.push(solomon);
+
+let hank = {
+    id: 6,
+    cardClass: "hank",
+    name:"Hank", 
+    life:"4", 
+    img: "img/Heroes/Hank.png",
+    startTurnPassive1: pAxeMaster, 
+    startTurnPassive2:"", 
+    endTurnPassive1:"", 
+    endTurnPassive2:"", 
+    conditionalPassive1: "",
+    conditionalPassive2:"",
+    ability1: aSlitOpen,
+    ability2: "",
+    ability3: "",
+    abilityText1: "<span><strong>Hendir (4)</strong><br>Aplica 1 contador a la Bestia seleccionada</span>",
+    abilityText2: "<span><strong>Maestro del Hacha</strong><br>Ganas 1 recurso naranja extra al principio del turno si tienes un hacha equipada</span>",
+    abilityText3: "" 
+}
+heroes.push(hank);
